@@ -1,0 +1,25 @@
+﻿<Properties>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="PluginCore/DockPanelSuite/Win32/NativeMethods.cs">
+    <Files>
+      <File FileName="PluginCore/DockPanelSuite/Docking/DockPanel.FocusManager.cs" Line="90" Column="44" />
+      <File FileName="PluginCore/DockPanelSuite/Win32/NativeMethods.cs" Line="51" Column="9" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State expanded="True">
+          <Node name="FlashDevelop" expanded="True" />
+          <Node name="PluginCore" expanded="True" selected="True">
+            <Node name="DockPanelSuite" expanded="True">
+              <Node name="Win32" expanded="True" />
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>

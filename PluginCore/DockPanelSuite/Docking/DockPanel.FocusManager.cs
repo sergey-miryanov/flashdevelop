@@ -87,9 +87,9 @@ namespace WeifenLuo.WinFormsUI.Docking
                     if (m_hHook != IntPtr.Zero)
                         Uninstall();
 
-                    int threadId = NativeMethods.GetCurrentThreadId();
+					int threadId = NativeMethods.GetCurrentThreadId();
                     m_hHook = NativeMethods.SetWindowsHookEx(m_hookType, m_filterFunc, IntPtr.Zero, threadId);
-                }
+				}
 
                 // Uninstall the hook
                 public void Uninstall()
