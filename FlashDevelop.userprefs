@@ -1,22 +1,18 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="PluginCore/DockPanelSuite/Win32/NativeMethods.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="PluginCore/PluginCore.csproj">
     <Files>
-      <File FileName="PluginCore/DockPanelSuite/Docking/DockPanel.FocusManager.cs" Line="90" Column="44" />
-      <File FileName="PluginCore/DockPanelSuite/Win32/NativeMethods.cs" Line="51" Column="9" />
+      <File FileName="PluginCore/PluginCore/Utilities/SingleInstanceApp.cs" Line="20" Column="23" />
+      <File FileName="External/Plugins/ProjectManager/Projects/AS3/FlexProjectReader.cs" Line="247" Column="27" />
+      <File FileName="External/3rdParty/Aga-1.7/Aga.Controls/Tree/NativeMethods.cs" Line="6" Column="28" />
+      <File FileName="PluginCore/DockPanelSuite/Win32/NativeMethods.cs" Line="26" Column="35" />
+      <File FileName="PluginCore/DockPanelSuite/Helpers/Win32Helper.cs" Line="11" Column="35" />
+      <File FileName="PluginCore/DockPanelSuite/Docking/DockPanel.FocusManager.cs" Line="64" Column="40" />
+      <File FileName="PluginCore/PluginCore.csproj" Line="62" Column="59" />
+      <File FileName="PluginCore/DockPanelSuite/Win32/Enums.cs" Line="1" Column="1" />
+      <File FileName="PluginCore/DockPanelSuite/Linux/Enums.cs" Line="3" Column="45" />
+      <File FileName="PluginCore/DockPanelSuite/Linux/NativeMethods.cs" Line="9" Column="27" />
     </Files>
-    <Pads>
-      <Pad Id="ProjectPad">
-        <State expanded="True">
-          <Node name="FlashDevelop" expanded="True" />
-          <Node name="PluginCore" expanded="True" selected="True">
-            <Node name="DockPanelSuite" expanded="True">
-              <Node name="Win32" expanded="True" />
-            </Node>
-          </Node>
-        </State>
-      </Pad>
-    </Pads>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
