@@ -290,18 +290,6 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="PluginCore\Controls\WinFormUtils.cs" />
-    <Compile Include="DockPanelSuite\Win32\Enums.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="DockPanelSuite\Win32\NativeMethods.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="DockPanelSuite\Linux\Enums.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="DockPanelSuite\Linux\NativeMethods.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="PluginCore\Helpers\ConfigHelper.cs" />
     <Compile Include="PluginCore\Helpers\ScaleHelper.cs" />
     <Compile Include="PluginCore\Helpers\JvmConfigHelper.cs" />
@@ -493,6 +481,22 @@
     <Compile Include="SharpZipLib\Zip\ZipInputStream.cs" />
     <Compile Include="SharpZipLib\Zip\ZipNameTransform.cs" />
     <Compile Include="SharpZipLib\Zip\ZipOutputStream.cs" />
+  </ItemGroup>
+  <ItemGroup Condition=" '$(OS)' != 'Unix' ">
+    <Compile Include="DockPanelSuite\Win32\Enums.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DockPanelSuite\Win32\NativeMethods.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup Condition=" '$(OS)' == 'Unix' ">
+    <Compile Include="DockPanelSuite\Linux\Enums.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DockPanelSuite\Linux\NativeMethods.cs">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{967B4E0D-AD0C-4609-AB67-0FA40C0206D8}" />
