@@ -266,10 +266,10 @@
   <Target Name="AfterBuild">
   </Target>
   -->
-  <PropertyGroup>
+  <PropertyGroup Condition=" '$(OS)' != 'Unix'">
     <PreBuildEvent>"$(SolutionDir)\SetVersion.bat" "$(SolutionDir)"</PreBuildEvent>
   </PropertyGroup>
-  <ItemGroup>
-    <None Include="Properties\AssemblyInfo.cs.rev" />
-  </ItemGroup>
+  <PropertyGroup Condition=" '$(OS)' == 'Unix'">
+    <PreBuildEvent>"$(SolutionDir)\SetVersion.sh" "$(SolutionDir)"</PreBuildEvent>
+  </PropertyGroup>
 </Project>
