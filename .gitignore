@@ -9,6 +9,7 @@ Thumbs.db
 *.fdb
 *.fdl
 *.fda
+*.resources
 obj/
 FlashDevelop/Properties/AssemblyInfo.cs
 FlashDevelop/Bin/Debug/FlashDevelop.*

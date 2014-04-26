@@ -298,6 +298,12 @@
     <Compile Include="PluginCore\Helpers\SnippetHelper.cs" />
     <Compile Include="PluginCore\Helpers\DrawHelper.cs" />
     <Compile Include="PluginCore\DataClasses.cs" />
+    <Compile Include="DockPanelSuite\Win32\Enums.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DockPanelSuite\Win32\NativeMethods.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="PluginCore\Localization\Attributes.cs" />
     <Compile Include="PluginCore\Localization\LocaleVersion.cs" />
     <Compile Include="PluginCore\Localization\TextHelper.cs" />
@@ -482,22 +488,6 @@
     <Compile Include="SharpZipLib\Zip\ZipNameTransform.cs" />
     <Compile Include="SharpZipLib\Zip\ZipOutputStream.cs" />
   </ItemGroup>
-  <ItemGroup Condition=" '$(OS)' != 'Unix' ">
-    <Compile Include="DockPanelSuite\Win32\Enums.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="DockPanelSuite\Win32\NativeMethods.cs">
-      <SubType>Code</SubType>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup Condition=" '$(OS)' == 'Unix' ">
-    <Compile Include="DockPanelSuite\Linux\Enums.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="DockPanelSuite\Linux\NativeMethods.cs">
-      <SubType>Code</SubType>
-    </Compile>
-  </ItemGroup>
   <ItemGroup>
     <Service Include="{967B4E0D-AD0C-4609-AB67-0FA40C0206D8}" />
   </ItemGroup>
@@ -584,7 +574,4 @@
     <PostBuildEvent>
     </PostBuildEvent>
   </PropertyGroup>
-  <ItemGroup>
-    <Folder Include="DockPanelSuite\Linux\" />
-  </ItemGroup>
 </Project>
