@@ -118,7 +118,9 @@ namespace WeifenLuo.WinFormsUI.Docking
                 }
             }
 
-            private LocalWindowsHook m_localWindowsHook;
+			// Use a static instance of the windows hook to prevent stack overflows in the windows kernel.
+			[ThreadStatic]
+			private static LocalWindowsHook sm_localWindowsHook;
             private LocalWindowsHook.HookEventHandler m_hookEventHandler;
 
             public FocusManagerImpl(DockPanel dockPanel)
@@ -126,10 +128,14 @@ namespace WeifenLuo.WinFormsUI.Docking
                 m_dockPanel = dockPanel;
 				if (Win32Helper.IsRunningOnMono)
 					return;
-                m_localWindowsHook = new LocalWindowsHook(Win32.HookType.WH_CALLWNDPROCRET);
                 m_hookEventHandler = new LocalWindowsHook.HookEventHandler(HookEventHandler);
-                m_localWindowsHook.HookInvoked += m_hookEventHandler;
-                m_localWindowsHook.Install();
+				// Ensure the windows hook has been created for this thread
+				if (sm_localWindowsHook == null)
+				{
+					sm_localWindowsHook = new LocalWindowsHook(Win32.HookType.WH_CALLWNDPROCRET);
+					sm_localWindowsHook.Install();
+				}
+				sm_localWindowsHook.HookInvoked += m_hookEventHandler;
             }
 
             private DockPanel m_dockPanel;
@@ -141,17 +147,17 @@ namespace WeifenLuo.WinFormsUI.Docking
             private bool m_disposed = false;
             protected override void Dispose(bool disposing)
             {
-                lock (this)
-                {
-                    if (!m_disposed && disposing)
-                    {
-						if (!Win32Helper.IsRunningOnMono)
-                        	m_localWindowsHook.Dispose();
-                        m_disposed = true;
-                    }
+				if (!m_disposed && disposing)
+				{
+					if (!Win32Helper.IsRunningOnMono)
+					{
+						sm_localWindowsHook.HookInvoked -= m_hookEventHandler;
+					}
 
-                    base.Dispose(disposing);
-                }
+					m_disposed = true;
+				}
+
+				base.Dispose(disposing);
             }
 
             private IDockContent m_contentActivating = null;
@@ -288,7 +294,7 @@ namespace WeifenLuo.WinFormsUI.Docking
             {
                 m_countSuspendFocusTracking++;
 				if (!Win32Helper.IsRunningOnMono)
-                	m_localWindowsHook.HookInvoked -= m_hookEventHandler;
+					sm_localWindowsHook.HookInvoked -= m_hookEventHandler;
             }
 
             public void ResumeFocusTracking()
@@ -304,7 +310,7 @@ namespace WeifenLuo.WinFormsUI.Docking
                         ContentActivating = null;
                     }
 					if (!Win32Helper.IsRunningOnMono)
-                    	m_localWindowsHook.HookInvoked += m_hookEventHandler;
+						sm_localWindowsHook.HookInvoked += m_hookEventHandler;
                     if (!InRefreshActiveWindow)
                         RefreshActiveWindow();
                 }
