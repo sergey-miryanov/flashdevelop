@@ -4,8 +4,17 @@ using ScintillaNet.Enums;
 
 namespace ScintillaNet
 {
-	public class WinAPI
+	public class WinAPI : APIUtils
 	{
+		public WinAPI()
+		{
+		}
+
+		IntPtr APIUtils.LoadLibrary(string fileName) 
+		{
+			return LoadLibrary(fileName);
+		}
+
 		[DllImport("kernel32.dll")]
 		public extern static IntPtr LoadLibrary(string lpLibFileName);
 		

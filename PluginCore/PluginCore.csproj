@@ -487,6 +487,9 @@
     <Compile Include="SharpZipLib\Zip\ZipInputStream.cs" />
     <Compile Include="SharpZipLib\Zip\ZipNameTransform.cs" />
     <Compile Include="SharpZipLib\Zip\ZipOutputStream.cs" />
+    <Compile Include="ScintillaNet\LinuxAPI.cs" />
+    <Compile Include="ScintillaNet\APIUtils.cs" />
+    <Compile Include="ScintillaNet\OSHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{967B4E0D-AD0C-4609-AB67-0FA40C0206D8}" />
