@@ -1,7 +1,7 @@
 using System;
 using System.Runtime.InteropServices;
 
-namespace ScintillaNet
+namespace PluginCore
 {
 	public class LinuxAPI : APIUtils
 	{

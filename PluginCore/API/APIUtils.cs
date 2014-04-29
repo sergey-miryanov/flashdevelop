@@ -1,6 +1,6 @@
 using System;
 
-namespace ScintillaNet
+namespace PluginCore
 {
 	public interface APIUtils
 	{

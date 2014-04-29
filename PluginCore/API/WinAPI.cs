@@ -2,7 +2,7 @@ using System;
 using System.Runtime.InteropServices;
 using ScintillaNet.Enums;
 
-namespace ScintillaNet
+namespace PluginCore
 {
 	public class WinAPI : APIUtils
 	{

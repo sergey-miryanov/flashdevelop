@@ -48,8 +48,6 @@
     <ConfigurationOverrideFile>
     </ConfigurationOverrideFile>
     <DefineConstants>TRACE;DEBUG</DefineConstants>
-    <DocumentationFile>
-    </DocumentationFile>
     <DebugSymbols>true</DebugSymbols>
     <FileAlignment>4096</FileAlignment>
     <Optimize>false</Optimize>
@@ -65,8 +63,6 @@
     <ConfigurationOverrideFile>
     </ConfigurationOverrideFile>
     <DefineConstants>TRACE</DefineConstants>
-    <DocumentationFile>
-    </DocumentationFile>
     <FileAlignment>4096</FileAlignment>
     <Optimize>false</Optimize>
     <RegisterForComInterop>false</RegisterForComInterop>
@@ -405,9 +401,6 @@
     <Compile Include="ScintillaNet\Structs.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="ScintillaNet\WinAPI.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="ScintillaNet\XPM.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -487,9 +480,13 @@
     <Compile Include="SharpZipLib\Zip\ZipInputStream.cs" />
     <Compile Include="SharpZipLib\Zip\ZipNameTransform.cs" />
     <Compile Include="SharpZipLib\Zip\ZipOutputStream.cs" />
-    <Compile Include="ScintillaNet\LinuxAPI.cs" />
-    <Compile Include="ScintillaNet\APIUtils.cs" />
-    <Compile Include="ScintillaNet\OSHelper.cs" />
+    <Compile Include="API\APIUtils.cs" />
+    <Compile Include="API\LinuxAPI.cs" />
+    <Compile Include="API\OSHelper.cs" />
+    <Compile Include="API\MacAPI.cs" />
+    <Compile Include="API\WinAPI.cs">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{967B4E0D-AD0C-4609-AB67-0FA40C0206D8}" />
@@ -577,4 +574,7 @@
     <PostBuildEvent>
     </PostBuildEvent>
   </PropertyGroup>
+  <ItemGroup>
+    <Folder Include="API\" />
+  </ItemGroup>
 </Project>

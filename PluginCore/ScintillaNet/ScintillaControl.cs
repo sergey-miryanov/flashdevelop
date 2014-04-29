@@ -42,11 +42,9 @@ namespace ScintillaNet
 
         public ScintillaControl(string fullpath)
         {
-			var isLinux = OSHelper.IsLinux();
             try
             {
-				APIUtils dllLoadUtils = isLinux ? (APIUtils) new LinuxAPI() : (APIUtils) new WinAPI();
-                IntPtr lib = dllLoadUtils.LoadLibrary(fullpath);
+                IntPtr lib = OSHelper.API.LoadLibrary(fullpath);
                 hwndScintilla = WinAPI.CreateWindowEx(0, "Scintilla", "", WS_CHILD_VISIBLE_TABSTOP, 0, 0, this.Width, this.Height, this.Handle, 0, new IntPtr(0), null);
                 directPointer = (int)SlowPerform(2185, 0, 0);
                 UpdateUI += new UpdateUIHandler(OnBraceMatch);
