@@ -316,9 +316,11 @@ namespace CodeRefactor.Provider
         /// </summary>
         public static Boolean IsProjectRelatedFile(IProject project, String file)
         {
-            foreach (String path in project.SourcePaths)
+            IASContext context = ASContext.GetLanguageContext(project.Language);
+            if (context == null) return false;
+            foreach (PathModel pathModel in context.Classpath)
             {
-                String absolute = project.GetAbsolutePath(path);
+                string absolute = project.GetAbsolutePath(pathModel.Path);
                 if (file.StartsWith(absolute)) return true;
             }
             // If no source paths are defined, is it under the project?
@@ -336,13 +338,13 @@ namespace CodeRefactor.Provider
         private static List<String> GetAllProjectRelatedFiles(IProject project)
         {
             List<String> files = new List<String>();
-
             string filter = GetSearchPatternFromLang(project.Language.ToLower());
-            if (string.IsNullOrEmpty(filter))
-                return files;
-
-            foreach (String path in project.SourcePaths)
+            if (string.IsNullOrEmpty(filter)) return files;
+            IASContext context = ASContext.GetLanguageContext(project.Language);
+            if (context == null) return files;
+            foreach (PathModel pathModel in context.Classpath)
             {
+                string path = pathModel.Path;
                 String absolute = project.GetAbsolutePath(path);
                 if (Directory.Exists(path))
                     files.AddRange(Directory.GetFiles(absolute, filter, SearchOption.AllDirectories));
@@ -430,7 +432,7 @@ namespace CodeRefactor.Provider
             Move(oldPath, newPath, true);
         }
 
-        public static void Move(string oldPath, string newPath, bool withMove)
+        public static void Move(string oldPath, string newPath, bool renaming)
         {
             if (string.IsNullOrEmpty(oldPath) || string.IsNullOrEmpty(newPath)) return;
             ProjectManager.Projects.Project project = (ProjectManager.Projects.Project)PluginBase.CurrentProject;
@@ -444,7 +446,7 @@ namespace CodeRefactor.Provider
             else if (Directory.Exists(oldPath))
             {
                 string oldDirName = Path.GetFileName(oldPath);
-                string newDirName = withMove ? Path.Combine(newPath, oldDirName) : Path.Combine(Path.GetDirectoryName(oldPath), newPath);
+                string newDirName = renaming ? Path.Combine(Path.GetDirectoryName(oldPath), newPath) : Path.Combine(newPath, oldDirName);
                 string searchPattern = GetSearchPatternFromLang(project.Language.ToLower());
                 foreach (string file in Directory.GetFiles(oldPath, searchPattern, SearchOption.AllDirectories))
                 {
