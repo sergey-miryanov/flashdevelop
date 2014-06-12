@@ -80,7 +80,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HighlightSelection", "..\Fl
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AntPlugin", "..\FlashDevelop-AntPanel-plugin\AntPlugin.csproj", "{9E80A8F9-C99E-427D-AE23-C1CF3C17451B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuickNavigatePlugin", "..\FlashDevelop-QuickNavigat-plugin\QuickNavigatePlugin.csproj", "{36B91299-9080-4052-839D-74166B18DD24}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuickNavigatePlugin", "..\FlashDevelop-QuickNavigate-plugin\QuickNavigatePlugin.csproj", "{36B91299-9080-4052-839D-74166B18DD24}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HaxelibPanel", "..\Flashdevelop-Haxelib-panel-plugin\HaxelibPanel.csproj", "{D463143B-0740-43C4-BC0A-353B39DCCE66}"
 EndProject
