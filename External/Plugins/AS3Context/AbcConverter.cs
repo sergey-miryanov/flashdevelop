@@ -941,7 +941,8 @@ namespace AS3Context
             {
                 if (Name == "apiVersion")
                     ReadPrologMetadataApiVersion(doc);
-
+                else if (Name == "styles")
+                    ReadPrologMetadataStyles(doc);
                 Read();
             }
         }
@@ -990,6 +991,21 @@ namespace AS3Context
                     doc.ExtraAsDocs.Add(new KeyValuePair<string, string>(asdocKey, asdocVal));
                 }
 
+                Read();
+            }
+        }
+
+        private void ReadPrologMetadataStyles(ASDocItem doc)
+        {
+            if (IsEmptyElement)
+                return;
+
+            string eon = Name;
+            ReadStartElement();
+            while (Name != eon)
+            {
+                if (Name == "style")
+                    ReadStyleMeta(doc);
                 Read();
             }
         }
@@ -1190,7 +1206,7 @@ namespace AS3Context
 
             string sName = GetAttribute("name");
             string sType = GetAttribute("type");
-            //string sInherit = GetAttribute("inherit");
+            string sInherit = GetAttribute("inherit");
             //string sFormat = GetAttribute("format");
             string sEnum = GetAttribute("enumeration");
             string sDefault = null;
@@ -1214,6 +1230,11 @@ namespace AS3Context
             meta.Params["name"] = sName;
             meta.Params["type"] = sType;
             meta.RawParams = String.Format("name=\"{0}\", type=\"{1}\"", sName, sType);
+            if (sInherit != null)
+            {
+                meta.Params["inherit"] = sInherit;
+                meta.RawParams += ", inherit=\"" + sInherit + "\"";
+            }
             if (sEnum != null)
             {
                 meta.Params["enumeration"] = sEnum;
