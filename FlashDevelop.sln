@@ -78,7 +78,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoomContext", "External\Plu
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HighlightSelection", "..\fd-highlight-selected-plugin\HighlightSelection.csproj", "{E4F08D64-52E2-4211-8003-D94A0B51F1CC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AntPlugin", "..\fd-AntPanel-plugin\AntPlugin.csproj", "{9E80A8F9-C99E-427D-AE23-C1CF3C17451B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AntPlugin", "..\fd-ant-panel-plugin\AntPlugin.csproj", "{9E80A8F9-C99E-427D-AE23-C1CF3C17451B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuickNavigatePlugin", "..\fd-QuickNavigate-plugin\QuickNavigatePlugin.csproj", "{36B91299-9080-4052-839D-74166B18DD24}"
 EndProject
