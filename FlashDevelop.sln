@@ -86,7 +86,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HaxelibPanel", "..\fd-Haxel
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HappinessMaker", "..\fd-happiness-maker-plugin\HappinessMaker.csproj", "{8954DD81-B5FC-4D8B-AE02-7047AA01A5A2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ADProjectSettingsManager", "..\fd-ad-project-settings-manager\ADProjectSettingsManager.csproj", "{329A097E-8220-4173-A3A9-AD7C897D235F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ADProjectSettingsManager", "..\fd-projectcodeformat-plugin\ProjectCodeFormat.csproj", "{329A097E-8220-4173-A3A9-AD7C897D235F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
