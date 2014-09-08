@@ -42,7 +42,7 @@ namespace ASCompletionTest.Model
         [TestMethod]
         public void TestParseAS3FileWithCustomNamespace()
         {
-            FileModel fileModel = ASFileParser.ParseFile(new FileModel(PathHelper.as3FileWithCustomNamespaces));
+            FileModel fileModel = ASFileParser.ParseFile(new FileModel(PathHelper.as3FileWithCustomNamespace));
             ClassModel classModel = fileModel.GetClassByName("TestClass");
             Assert.AreEqual(1, classModel.Members.Count);
             MemberModel member = classModel.Members[0];

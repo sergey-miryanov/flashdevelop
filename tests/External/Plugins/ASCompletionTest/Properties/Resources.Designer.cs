@@ -83,9 +83,9 @@ namespace ASCompletionTest.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
-        internal static byte[] AS3TestClassWithCustomNamespaces {
+        internal static byte[] AS3TestClassWithCustomNamespace {
             get {
-                object obj = ResourceManager.GetObject("AS3TestClassWithCustomNamespaces", resourceCulture);
+                object obj = ResourceManager.GetObject("AS3TestClassWithCustomNamespace", resourceCulture);
                 return ((byte[])(obj));
             }
         }
