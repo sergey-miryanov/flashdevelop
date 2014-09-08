@@ -56,12 +56,6 @@ namespace ASCompletionTest.Model
         public void TestParseHaxeFileWithPrivateClass()
         {
             FileModel fileModel = ASFileParser.ParseFile(new FileModel(PathHelper.hxFileWithPrivateClass));
-            Assert.IsTrue(fileModel.haXe);
-            Assert.AreEqual(4, fileModel.Version);
-            Assert.IsTrue(fileModel.HasPackage);
-            Assert.AreEqual("flashdevelop.tests", fileModel.Package);
-            Assert.IsTrue(string.IsNullOrEmpty(fileModel.Module));
-            Assert.AreEqual(0, fileModel.Members.Count);
             Assert.AreEqual(2, fileModel.Classes.Count);
             ClassModel classModel = fileModel.GetClassByName("PublicClass");
             Assert.IsNotNull(classModel);
