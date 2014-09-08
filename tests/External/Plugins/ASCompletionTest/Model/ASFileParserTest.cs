@@ -40,7 +40,7 @@ namespace ASCompletionTest.Model
         }
 
         [TestMethod]
-        public void TestParserAS3FileWithCustromNamespace()
+        public void TestParserAS3FileWithCustomNamespace()
         {
             FileModel fileModel = ASFileParser.ParseFile(new FileModel(PathHelper.as3FileWithCustomNamespaces));
             ClassModel classModel = fileModel.GetClassByName("TestClass");
