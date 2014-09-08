@@ -76,7 +76,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CssCompletion", "External\P
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoomContext", "External\Plugins\LoomContext\LoomContext.csproj", "{92BBB3B6-E318-4B12-8378-6D46E69AB938}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ASCompletionTest", "tests\External\Plugins\ASCompletion\ASCompletionTest\ASCompletionTest.csproj", "{4D899691-6CDB-457A-A6EE-CC6C42D1A609}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ASCompletionTest", "tests\External\Plugins\ASCompletionTest\ASCompletionTest.csproj", "{4D899691-6CDB-457A-A6EE-CC6C42D1A609}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
