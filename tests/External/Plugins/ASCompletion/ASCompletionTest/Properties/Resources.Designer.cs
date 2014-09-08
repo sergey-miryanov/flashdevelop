@@ -63,6 +63,16 @@ namespace ASCompletionTest.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
+        internal static byte[] HaxeModuleWithPrivateClass {
+            get {
+                object obj = ResourceManager.GetObject("HaxeModuleWithPrivateClass", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
         internal static byte[] TestAS3Class {
             get {
                 object obj = ResourceManager.GetObject("TestAS3Class", resourceCulture);

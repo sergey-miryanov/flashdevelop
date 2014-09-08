@@ -50,7 +50,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="Paths.cs" />
+    <Compile Include="PathHelper.cs" />
     <Compile Include="Model\ASFileParserTest.cs" />
     <Compile Include="Model\FileModelTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -80,6 +80,7 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -87,8 +88,9 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <None Include="Resources\TestClass.hx" />
-    <None Include="Resources\TestClass.as" />
+    <None Include="Resources\haxe\HaxeModuleWithPrivateClass.hx" />
+    <None Include="Resources\haxe\TestClass.hx" />
+    <None Include="Resources\as3\TestClass.as" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
