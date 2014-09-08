@@ -40,6 +40,18 @@ namespace ASCompletionTest.Model
         }
 
         [TestMethod]
+        public void TestParserAS3FileWithCustromNamespace()
+        {
+            FileModel fileModel = ASFileParser.ParseFile(new FileModel(PathHelper.as3FileWithCustomNamespaces));
+            ClassModel classModel = fileModel.GetClassByName("TestClass");
+            Assert.AreEqual(1, classModel.Members.Count);
+            MemberModel member = classModel.Members[0];
+            Assert.AreEqual("test", member.Name);
+            Assert.AreEqual((uint)0, (uint)member.Access);
+            Assert.AreEqual("$private", member.Namespace);
+        }
+
+        [TestMethod]
         public void TestParseHaxeFile()
         {
             FileModel fileModel = ASFileParser.ParseFile(new FileModel(PathHelper.hxFileName));
@@ -57,7 +69,7 @@ namespace ASCompletionTest.Model
             Assert.AreEqual(ClassModel.VoidClass, classModel);
             classModel = fileModel.GetClassByName("TestClass");
             Assert.AreNotEqual(ClassModel.VoidClass, classModel);
-            //Assert.AreEqual(Visibility.Public, classModel.Access);//Assert.AreEqual failed. Expected:<Public>. Actual:<0>.
+            Assert.AreEqual(Visibility.Public, classModel.Access);
             Assert.AreEqual(ClassModel.VoidClass, classModel.Extends);
             Assert.IsNotNull(classModel.Members);
             Assert.AreEqual(1, classModel.Members.Count);

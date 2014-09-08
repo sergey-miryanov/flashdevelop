@@ -61,6 +61,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\External\Plugins\AS3Context\AS3Context.csproj">
+      <Project>{0263e5f6-d5b2-4118-b12e-87f9a74de8af}</Project>
+      <Name>AS3Context</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\External\Plugins\ASCompletion\ASCompletion.csproj">
       <Project>{4ebf2653-9654-4e40-880e-0046b3d6210e}</Project>
       <Name>ASCompletion</Name>
@@ -80,6 +84,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\as3\AS3ModuleWithPrivateClass.as" />
+    <None Include="Resources\as3\AS3TestClassWithCustomNamespaces.as" />
     <None Include="Resources\haxe\HaxeModuleWithPrivateClass.hx" />
     <None Include="Resources\haxe\HaxeTestClass.hx" />
     <None Include="Resources\as3\AS3TestClass.as" />
