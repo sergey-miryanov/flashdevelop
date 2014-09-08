@@ -1,8 +1,5 @@
-﻿using System;
+﻿using ASCompletion.Model;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using ASCompletion.Model;
-using System.IO;
-using System.Diagnostics;
 
 namespace ASCompletionTest.Model
 {
