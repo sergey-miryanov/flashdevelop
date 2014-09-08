@@ -52,6 +52,17 @@ namespace ASCompletionTest.Model
         }
 
         [TestMethod]
+        public void TestParseAS3FileWithCustomNamespaces()
+        {
+            FileModel fileModel = ASFileParser.ParseFile(new FileModel(PathHelper.as3FileWithCustomNamespaces));
+            ClassModel classModel = fileModel.GetClassByName("TestClass");
+            Assert.AreEqual(2, classModel.Members.Count);
+            MemberModel member0 = classModel.Members[0];
+            MemberModel member1 = classModel.Members[1];
+            Assert.IsFalse(member0.Equals(member1));
+        }
+
+        [TestMethod]
         public void TestParseHaxeFile()
         {
             FileModel fileModel = ASFileParser.ParseFile(new FileModel(PathHelper.hxFileName));
