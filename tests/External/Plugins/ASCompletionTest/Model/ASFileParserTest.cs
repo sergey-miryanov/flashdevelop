@@ -11,22 +11,22 @@ namespace ASCompletionTest.Model
         {
             FileModel fileModel = ASFileParser.ParseFile(new FileModel(PathHelper.as3FileName));
             Assert.IsFalse(fileModel.haXe);
-            Assert.AreEqual(3, fileModel.Version);
+            Assert.AreEqual(fileModel.Version, 3);
             Assert.IsTrue(fileModel.HasPackage);
-            Assert.AreEqual("flashdevelop.tests", fileModel.Package);
+            Assert.AreEqual(fileModel.Package, "flashdevelop.tests");
             Assert.IsTrue(string.IsNullOrEmpty(fileModel.Module));
-            Assert.AreEqual(0, fileModel.Namespaces.Count);
-            Assert.AreEqual(0, fileModel.Imports.Count);
-            Assert.AreEqual(0, fileModel.Members.Count);
-            Assert.AreEqual(0, fileModel.Regions.Count);
-            Assert.AreEqual(1, fileModel.Classes.Count);
+            Assert.AreEqual(fileModel.Namespaces.Count, 0);
+            Assert.AreEqual(fileModel.Imports.Count, 0);
+            Assert.AreEqual(fileModel.Members.Count, 0);
+            Assert.AreEqual(fileModel.Regions.Count, 0);
+            Assert.AreEqual(fileModel.Classes.Count, 1);
             ClassModel classModel = fileModel.GetPublicClass();
-            Assert.AreNotEqual(ClassModel.VoidClass, classModel);
-            Assert.AreEqual("TestClass", classModel.Name);
-            Assert.AreEqual(Visibility.Public, classModel.Access);
-            Assert.AreEqual(ClassModel.VoidClass, classModel.Extends);
+            Assert.AreNotEqual(classModel, ClassModel.VoidClass);
+            Assert.AreEqual(classModel.Name, "TestClass");
+            Assert.AreEqual(classModel.Access, Visibility.Public);
+            Assert.AreEqual(classModel.Extends, ClassModel.VoidClass);
             Assert.IsNotNull(classModel.Members);
-            Assert.AreEqual(1, classModel.Members.Count);
+            Assert.AreEqual(classModel.Members.Count, 1);
         }
 
         [TestMethod]
@@ -36,7 +36,7 @@ namespace ASCompletionTest.Model
             Assert.AreEqual(2, fileModel.Classes.Count);
             ClassModel classModel = fileModel.GetClassByName("PrivateClass");
             Assert.IsNotNull(classModel);
-            Assert.AreEqual(Visibility.Private, classModel.Access);
+            Assert.AreEqual(classModel.Access, Visibility.Private);
         }
 
         [TestMethod]
@@ -46,9 +46,9 @@ namespace ASCompletionTest.Model
             ClassModel classModel = fileModel.GetClassByName("TestClass");
             Assert.AreEqual(1, classModel.Members.Count);
             MemberModel member = classModel.Members[0];
-            Assert.AreEqual("test", member.Name);
-            Assert.AreEqual((uint)0, (uint)member.Access);
-            Assert.AreEqual("$private", member.Namespace);
+            Assert.AreEqual(member.Name, "test");
+            Assert.AreEqual((uint)member.Access, (uint)0);
+            Assert.AreEqual(member.Namespace, "$private");
         }
 
         [TestMethod]
@@ -67,23 +67,23 @@ namespace ASCompletionTest.Model
         {
             FileModel fileModel = ASFileParser.ParseFile(new FileModel(PathHelper.hxFileName));
             Assert.IsTrue(fileModel.haXe);
-            Assert.AreEqual(4, fileModel.Version);
+            Assert.AreEqual(fileModel.Version, 4);
             Assert.IsTrue(fileModel.HasPackage);
-            Assert.AreEqual("flashdevelop.tests", fileModel.Package);
+            Assert.AreEqual(fileModel.Package, "flashdevelop.tests");
             Assert.IsTrue(string.IsNullOrEmpty(fileModel.Module));
-            Assert.AreEqual(0, fileModel.Namespaces.Count);
-            Assert.AreEqual(0, fileModel.Imports.Count);
-            Assert.AreEqual(0, fileModel.Members.Count);
-            Assert.AreEqual(0, fileModel.Regions.Count);
-            Assert.AreEqual(1, fileModel.Classes.Count);
+            Assert.AreEqual(fileModel.Namespaces.Count, 0);
+            Assert.AreEqual(fileModel.Imports.Count, 0);
+            Assert.AreEqual(fileModel.Members.Count, 0);
+            Assert.AreEqual(fileModel.Regions.Count, 0);
+            Assert.AreEqual(fileModel.Classes.Count, 1);
             ClassModel classModel = fileModel.GetPublicClass();
-            Assert.AreEqual(ClassModel.VoidClass, classModel);
+            Assert.AreEqual(classModel, ClassModel.VoidClass);
             classModel = fileModel.GetClassByName("TestClass");
-            Assert.AreNotEqual(ClassModel.VoidClass, classModel);
-            Assert.AreEqual(Visibility.Public, classModel.Access);
-            Assert.AreEqual(ClassModel.VoidClass, classModel.Extends);
+            Assert.AreNotEqual(classModel, ClassModel.VoidClass);
+            Assert.AreEqual(classModel.Access, Visibility.Public);
+            Assert.AreEqual(classModel.Extends, ClassModel.VoidClass);
             Assert.IsNotNull(classModel.Members);
-            Assert.AreEqual(1, classModel.Members.Count);
+            Assert.AreEqual(classModel.Members.Count, 1);
         }
 
         [TestMethod]
@@ -93,7 +93,7 @@ namespace ASCompletionTest.Model
             Assert.AreEqual(2, fileModel.Classes.Count);
             ClassModel classModel = fileModel.GetClassByName("PrivateClass");
             Assert.IsNotNull(classModel);
-            Assert.AreEqual(Visibility.Private, classModel.Access);
+            Assert.AreEqual(classModel.Access, Visibility.Private);
         }
     }
 }

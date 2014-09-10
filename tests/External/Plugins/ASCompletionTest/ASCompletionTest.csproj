@@ -62,6 +62,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\External\Plugins\AS2Context\AS2Context.csproj">
+      <Project>{74ad0487-cef9-43fe-9283-bc6f79539ade}</Project>
+      <Name>AS2Context</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\External\Plugins\AS3Context\AS3Context.csproj">
       <Project>{0263e5f6-d5b2-4118-b12e-87f9a74de8af}</Project>
       <Name>AS3Context</Name>
