@@ -50,6 +50,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="Model\MemberModelTest.cs" />
     <Compile Include="PathHelper.cs" />
     <Compile Include="Model\ASFileParserTest.cs" />
     <Compile Include="Model\FileModelTest.cs" />
