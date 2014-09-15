@@ -1,8 +1,14 @@
-﻿using PluginCore;
+﻿using FlashDevelop.Docking;
+using PluginCore;
+using PluginCore.Helpers;
+using PluginCore.Managers;
 using System;
 using System.Diagnostics;
+using System.IO;
 using System.Reflection;
+using System.Text;
 using System.Windows.Forms;
+using WeifenLuo.WinFormsUI.Docking;
 
 namespace FlashDevelopMock
 {
@@ -71,14 +77,108 @@ namespace FlashDevelopMock
             throw new NotImplementedException();
         }
 
-        public WeifenLuo.WinFormsUI.Docking.DockContent OpenEditableDocument(string file, bool restoreFileState)
+        public DockContent OpenEditableDocument(String org, Encoding encoding, Boolean restorePosition)
         {
-            throw new NotImplementedException();
+            DockContent createdDoc;
+            EncodingFileInfo info;
+            String file = PathHelper.GetPhysicalPathName(org);
+            TextEvent te = new TextEvent(EventType.FileOpening, file);
+            EventManager.DispatchEvent(this, te);
+            if (te.Handled)
+            {
+                if (this.Documents.Length == 0)
+                {
+                    this.New(null, null);
+                    return null;
+                }
+                else return null;
+            }
+            else if (file.EndsWith(".delete.fdz"))
+            {
+                this.CallCommand("RemoveZip", file);
+                return null;
+            }
+            else if (file.EndsWith(".fdz"))
+            {
+                this.CallCommand("ExtractZip", file);
+                if (file.ToLower().IndexOf("theme") != -1)
+                {
+                    String currentTheme = Path.Combine(PathHelper.ThemesDir, "CURRENT");
+                    //if (File.Exists(currentTheme)) ThemeManager.LoadTheme(currentTheme);
+                    this.RefreshSciConfig();
+                    //this.Refresh();
+                }
+                return null;
+            }
+            try
+            {
+                Int32 count = this.Documents.Length;
+                for (Int32 i = 0; i < count; i++)
+                {
+                    if (this.Documents[i].IsEditable && this.Documents[i].FileName.ToUpper() == file.ToUpper())
+                    {
+                        this.Documents[i].Activate();
+                        return null;
+                    }
+                }
+            }
+            catch { }
+            if (encoding == null)
+            {
+                info = FileHelper.GetEncodingFileInfo(file);
+                if (info.CodePage == -1) return null; // If the file is locked, stop.
+            }
+            else
+            {
+                info = FileHelper.GetEncodingFileInfo(file);
+                if (info.CodePage == -1) return null; // If the file is locked, stop.
+                info.Contents = FileHelper.ReadFile(file, encoding);
+                info.CodePage = encoding.CodePage;
+            }
+            DataEvent de = new DataEvent(EventType.FileDecode, file, null);
+            EventManager.DispatchEvent(this, de); // Lets ask if a plugin wants to decode the data..
+            if (de.Handled)
+            {
+                info.Contents = de.Data as String;
+                info.CodePage = Encoding.UTF8.CodePage; // assume plugin always return UTF8
+            }
+            try
+            {
+                if (this.CurrentDocument != null && this.CurrentDocument.IsUntitled && !this.CurrentDocument.IsModified && this.Documents.Length == 1)
+                {
+                    //this.closingForOpenFile = true;
+                    this.CurrentDocument.Close();
+                    //this.closingForOpenFile = false;
+                    createdDoc = this.CreateEditableDocument(file, info.Contents, info.CodePage);
+                }
+                else createdDoc = this.CreateEditableDocument(file, info.Contents, info.CodePage);
+                //ButtonManager.AddNewReopenMenuItem(file);
+            }
+            catch
+            {
+                createdDoc = this.CreateEditableDocument(file, info.Contents, info.CodePage);
+                //ButtonManager.AddNewReopenMenuItem(file);
+            }
+            TabbedDocument document = (TabbedDocument)createdDoc;
+            Debug.WriteLine("info != null: " + (info != null));
+            document.SciControl.SaveBOM = info.ContainsBOM;
+            document.SciControl.BeginInvoke((MethodInvoker)delegate
+            {
+                //if (this.appSettings.RestoreFileStates)
+                //{
+                //    FileStateManager.ApplyFileState(document, restorePosition);
+                //}
+            });
+            //ButtonManager.UpdateFlaggedButtons();
+            return createdDoc;
         }
-
-        public WeifenLuo.WinFormsUI.Docking.DockContent OpenEditableDocument(string file)
+        public DockContent OpenEditableDocument(String file, Boolean restorePosition)
         {
-            throw new NotImplementedException();
+            return this.OpenEditableDocument(file, null, restorePosition);
+        }
+        public DockContent OpenEditableDocument(String file)
+        {
+            return this.OpenEditableDocument(file, null, true);
         }
 
         public WeifenLuo.WinFormsUI.Docking.DockContent CreateCustomDocument(Control ctrl)
@@ -88,7 +188,24 @@ namespace FlashDevelopMock
 
         public WeifenLuo.WinFormsUI.Docking.DockContent CreateEditableDocument(string file, string text, int codepage)
         {
-            throw new NotImplementedException();
+            try
+            {
+                //this.notifyOpenFile = true;
+                TabbedDocument tabbedDocument = new TabbedDocument();
+                //tabbedDocument.Closing += new System.ComponentModel.CancelEventHandler(this.OnDocumentClosing);
+                //tabbedDocument.Closed += new System.EventHandler(this.OnDocumentClosed);
+                //tabbedDocument.TabPageContextMenuStrip = this.tabMenu;
+                //tabbedDocument.ContextMenuStrip = this.editorMenu;
+                tabbedDocument.Text = Path.GetFileName(file);
+                tabbedDocument.AddEditorControls(file, text, codepage);
+                tabbedDocument.Show();
+                return tabbedDocument;
+            }
+            catch (Exception ex)
+            {
+                //ErrorManager.ShowError(ex);
+                return null;
+            }
         }
 
         public WeifenLuo.WinFormsUI.Docking.DockContent CreateDockablePanel(Control form, string guid, System.Drawing.Image image, WeifenLuo.WinFormsUI.Docking.DockState defaultDockState)
@@ -333,9 +450,15 @@ namespace FlashDevelopMock
             throw new NotImplementedException();
         }
 
-        public System.Type GetType()
+        public void New(Object sender, EventArgs e)
         {
-            return System.Type.GetType("FlashDevelop.MainForm");
+            String fileName = DocumentManager.GetNewDocumentName(null);
+            TextEvent te = new TextEvent(EventType.FileNew, fileName);
+            EventManager.DispatchEvent(this, te);
+            if (!te.Handled)
+            {
+                this.CreateEditableDocument(fileName, "", Encoding.UTF8.CodePage);
+            }
         }
     }
 }

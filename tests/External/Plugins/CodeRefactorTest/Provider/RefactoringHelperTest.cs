@@ -15,6 +15,7 @@ namespace CodeRefactorTest.Provider
         {
             mainForm = new MainFormMock();
             SingleInstanceApp.Initialize();
+            PluginBase.MainForm.OpenEditableDocument("../../Resources/AS3TestProj/src/Main.as");
         }
 
         [TestMethod]
