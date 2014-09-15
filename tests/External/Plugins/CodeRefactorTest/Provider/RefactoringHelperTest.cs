@@ -1,5 +1,7 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using FlashDevelopMock;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PluginCore;
+using PluginCore.Utilities;
 
 namespace CodeRefactorTest.Provider
 {
@@ -11,6 +13,14 @@ namespace CodeRefactorTest.Provider
         [TestInitialize]
         public void Initialize()
         {
+            mainForm = new MainFormMock();
+            SingleInstanceApp.Initialize();
+        }
+
+        [TestMethod]
+        public void EmptyTest()
+        {
+            Assert.IsNotNull(PluginBase.MainForm);
         }
     }
 }
