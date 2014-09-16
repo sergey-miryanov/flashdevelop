@@ -160,7 +160,6 @@ namespace FlashDevelopMock
                 //ButtonManager.AddNewReopenMenuItem(file);
             }
             TabbedDocument document = (TabbedDocument)createdDoc;
-            Debug.WriteLine("info != null: " + (info != null));
             document.SciControl.SaveBOM = info.ContainsBOM;
             document.SciControl.BeginInvoke((MethodInvoker)delegate
             {
