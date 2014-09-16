@@ -17,14 +17,8 @@ namespace FlashDevelopMock
         public MainFormMock()
         {
             Type type = typeof(PluginBase);
-            foreach (var member in type.GetMembers(BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Static))
-            {
-                if (member.Name == "instance")
-                {
-                    ((FieldInfo)member).SetValue(null, this);//PluginBase.Initialize(this);
-                    break;
-                }
-            }
+            MemberInfo member = type.GetMember("instance", BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Static)[0];
+            ((FieldInfo)member).SetValue(null, this);//PluginBase.Initialize(this);
         }
 
         public void RefreshUI()
