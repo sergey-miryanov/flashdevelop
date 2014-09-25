@@ -6,8 +6,8 @@
     <ProjectGuid>{CCF9B9E9-D0D8-455F-96CD-CB22A37028DC}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>FlashDevelopMock</RootNamespace>
-    <AssemblyName>FlashDevelopMock</AssemblyName>
+    <RootNamespace>FlashDevelop.Test</RootNamespace>
+    <AssemblyName>FlashDevelop.Test</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>

@@ -4,7 +4,7 @@ using ASCompletion.Model;
 using PluginCore.Utilities;
 using ASCompletion.Completion;
 
-namespace ASCompletionTest.Model
+namespace ASCompletion.Test.Model
 {
     [TestClass]
     public class MemberModelTest

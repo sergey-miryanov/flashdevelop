@@ -7,8 +7,8 @@
     <ProjectGuid>{466A2420-CAF7-4900-A75B-04DE72BA531E}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>FlashDevelopMock</RootNamespace>
-    <AssemblyName>FlashDevelopMock</AssemblyName>
+    <RootNamespace>FlashDevelop.Mock</RootNamespace>
+    <AssemblyName>FlashDevelop.Mock</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

@@ -10,7 +10,7 @@ using System.Text;
 using System.Windows.Forms;
 using WeifenLuo.WinFormsUI.Docking;
 
-namespace FlashDevelopMock
+namespace FlashDevelop.Mock
 {
     public class MainFormMock : IMainForm, IMessageFilter
     {

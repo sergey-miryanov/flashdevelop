@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("ASCompletionTest")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("ASCompletion.Test")]
+[assembly: AssemblyDescription("Tests of ASCompletion Plugin For FlashDevelop.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("ASCompletionTest")]
+[assembly: AssemblyCompany("FlashDevelop.org")]
+[assembly: AssemblyProduct("ASCompletion.Test")]
 [assembly: AssemblyCopyright("Copyright ©  2014")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

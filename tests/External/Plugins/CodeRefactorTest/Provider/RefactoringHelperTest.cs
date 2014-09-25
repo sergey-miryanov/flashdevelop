@@ -1,9 +1,9 @@
-﻿using FlashDevelopMock;
+﻿using FlashDevelop.Mock;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PluginCore;
 using PluginCore.Utilities;
 
-namespace CodeRefactorTest.Provider
+namespace CodeRefactor.Test.Provider
 {
     [TestClass]
     public class RefactoringHelperTest

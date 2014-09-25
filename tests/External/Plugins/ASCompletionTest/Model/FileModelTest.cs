@@ -3,7 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ASCompletion.Model;
 using System.IO;
 
-namespace ASCompletionTest.Model
+namespace ASCompletion.Test.Model
 {
     [TestClass]
     public class FileModelTest

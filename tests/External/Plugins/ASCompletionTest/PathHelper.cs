@@ -1,4 +1,4 @@
-﻿namespace ASCompletionTest
+﻿namespace ASCompletion.Test
 {
     class PathHelper
     {

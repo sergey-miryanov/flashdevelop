@@ -1,7 +1,7 @@
 ﻿using ASCompletion.Model;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace ASCompletionTest.Model
+namespace ASCompletion.Test.Model
 {
     [TestClass]
     public class ASFileParserTest
