@@ -1427,6 +1427,12 @@ Alternatively, Adobe Flash Professional can also be used for syntax checking - p
   <data name="PluginCore.Docking.ToolTipWindowList" xml:space="preserve">
     <value>Window List</value>
   </data>
+  <data name="PluginCore.Info.FolderAlreadyContainsFile" xml:space="preserve">
+    <value>This folder already contains a file named "{0}".{1}Would you like to replace the existing file?</value>
+  </data>
+  <data name="PluginCore.Info.FolderAlreadyContainsFolder" xml:space="preserve">
+    <value>This folder already contains a folder named "{0}".{1}{1}If the files in the existing folder have the same name as files in the{1}folder you are moving or copying, they will be replaced. Do you still{1}want to move or copy the folder?</value>
+  </data>
   <data name="ProjectManager.Category.Advanced" xml:space="preserve">
     <value>Advanced</value>
   </data>
@@ -1699,12 +1705,6 @@ Alternatively, Adobe Flash Professional can also be used for syntax checking - p
   </data>
   <data name="ProjectManager.Info.FlashMovieFilter" xml:space="preserve">
     <value>Flash Movies (*.swf)|*.swf</value>
-  </data>
-  <data name="ProjectManager.Info.FolderAlreadyContainsFile" xml:space="preserve">
-    <value>This folder already contains a file named "{0}".{1}Would you like to replace the existing file?</value>
-  </data>
-  <data name="ProjectManager.Info.FolderAlreadyContainsFolder" xml:space="preserve">
-    <value>This folder already contains a folder named "{0}".{1}{1}If the files in the existing folder have the same name as files in the{1}folder you are moving or copying, they will be replaced. Do you still{1}want to move or copy the folder?</value>
   </data>
   <data name="ProjectManager.Info.General" xml:space="preserve">
     <value>General</value>
@@ -2966,7 +2966,8 @@ Please note that with injection enabled, you will not be able to use many projec
     <comment>Added after 3.3.2</comment>
   </data>
   <data name="ASCompletion.Description.AddClosingBraces" xml:space="preserve">
-    <value>Defines whether to add closing brace (or quote) after opening brace (or quote) automatically for ( and [ and quotes.</value>
+    <value>Defines whether to add the closing brace (or quote) after an opening brace (or quote) automatically for (, [, { and quotes.</value>
+    <comment>Modified after 4.6.4</comment>
   </data>
   <data name="ASClassWizard.Info.Description" xml:space="preserve">
     <value>Adds an ActionScript and Haxe class wizard to FlashDevelop.</value>
