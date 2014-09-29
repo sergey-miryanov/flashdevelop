@@ -78,11 +78,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoomContext", "External\Plu
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ASCompletion.Test", "tests\External\Plugins\ASCompletionTest\ASCompletion.Test.csproj", "{4D899691-6CDB-457A-A6EE-CC6C42D1A609}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeRefactorTest", "tests\External\Plugins\CodeRefactorTest\CodeRefactorTest.csproj", "{5775D1E4-27DD-4D39-9506-6C857E9007F1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeRefactor.Test", "tests\External\Plugins\CodeRefactorTest\CodeRefactor.Test.csproj", "{5775D1E4-27DD-4D39-9506-6C857E9007F1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlashDevelopTest", "Tests\FlashDevelopTest\FlashDevelopTest.csproj", "{CCF9B9E9-D0D8-455F-96CD-CB22A37028DC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlashDevelop.Test", "Tests\FlashDevelopTest\FlashDevelop.Test.csproj", "{CCF9B9E9-D0D8-455F-96CD-CB22A37028DC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlashDevelopMock", "Tests\FlashDevelopMock\FlashDevelopMock.csproj", "{466A2420-CAF7-4900-A75B-04DE72BA531E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlashDevelop.Mock", "Tests\FlashDevelopMock\FlashDevelop.Mock.csproj", "{466A2420-CAF7-4900-A75B-04DE72BA531E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
