@@ -22,21 +22,21 @@ namespace ASCompletion.Test.Model
         public void TestCreateEmptyMemberModel()
         {
             MemberModel m = new MemberModel();
-            Assert.AreEqual((uint)m.Access, (uint)0);
+            Assert.AreEqual((uint)0, (uint)m.Access);
             Assert.IsNull(m.Comments);
-            Assert.AreEqual((uint)m.Flags, (uint)0);
+            Assert.AreEqual((uint)0, (uint)m.Flags);
             Assert.IsNull(m.InFile);
             Assert.IsFalse(m.IsPackageLevel);
-            Assert.AreEqual(m.LineFrom, 0);
-            Assert.AreEqual(m.LineTo, 0);
+            Assert.AreEqual(0, m.LineFrom);
+            Assert.AreEqual(0, m.LineTo);
             Assert.IsNull(m.Name);
             Assert.IsNull(m.Namespace);
             Assert.IsNull(m.Template);
             Assert.IsNull(m.Type);
             Assert.IsNull(m.Value);
             Assert.IsNull(m.Parameters);
-            Assert.AreEqual(m.ParametersString(), "");
-            Assert.AreEqual(m.ToDeclarationString(), "");
+            Assert.AreEqual("", m.ParametersString());
+            Assert.AreEqual("", m.ToDeclarationString());
         }
 
         [TestMethod]
@@ -46,17 +46,17 @@ namespace ASCompletion.Test.Model
             ContextFeatures features = (ContextFeatures)privateObject.GetField("features");
             MemberModel m = new MemberModel("foo", features.numberKey, FlagType.Variable, Visibility.Private);
             m.Value = "10.0";
-            Assert.AreEqual(m.Name, "foo");
-            Assert.AreEqual(m.FullName, m.Name);
-            Assert.AreEqual(m.Type, features.numberKey);
-            Assert.AreEqual(m.Flags, FlagType.Variable);
-            Assert.AreEqual(m.Access, Visibility.Private);
-            Assert.AreEqual(m.ToString(), "foo : " + features.numberKey);
-            Assert.AreEqual(m.ToDeclarationString(), m.ToDeclarationString(true, false));
-            Assert.AreEqual(m.ToDeclarationString(true, false), "foo : " + features.numberKey);
-            Assert.AreEqual(m.ToDeclarationString(true, true), "foo : " + features.numberKey + " = 10.0");
-            Assert.AreEqual(m.ToDeclarationString(false, false), "foo:" + features.numberKey);
-            Assert.AreEqual(m.ToDeclarationString(false, true), "foo:" + features.numberKey + "=10.0");
+            Assert.AreEqual("foo", m.Name);
+            Assert.AreEqual(m.Name, m.FullName);
+            Assert.AreEqual(features.numberKey, m.Type);
+            Assert.AreEqual(FlagType.Variable, m.Flags);
+            Assert.AreEqual(Visibility.Private, m.Access);
+            Assert.AreEqual("foo : " + features.numberKey, m.ToString());
+            Assert.AreEqual(m.ToDeclarationString(true, false), m.ToDeclarationString());
+            Assert.AreEqual("foo : " + features.numberKey, m.ToDeclarationString(true, false));
+            Assert.AreEqual("foo : " + features.numberKey + " = 10.0", m.ToDeclarationString(true, true));
+            Assert.AreEqual("foo:" + features.numberKey, m.ToDeclarationString(false, false));
+            Assert.AreEqual("foo:" + features.numberKey + "=10.0", m.ToDeclarationString(false, true));
         }
     }
 }
