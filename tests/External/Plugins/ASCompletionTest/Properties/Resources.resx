@@ -130,6 +130,9 @@
   <data name="AS3TestClassWithCustomNamespaces" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\as3\AS3TestClassWithCustomNamespaces.as;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="AS3TestUserObjectClass" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\as3\AS3TestUserObjectClass.as;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="HaxeModuleWithPrivateClass" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\haxe\HaxeModuleWithPrivateClass.hx;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
