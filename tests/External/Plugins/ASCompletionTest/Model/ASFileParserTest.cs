@@ -6,6 +6,9 @@ namespace ASCompletion.Test.Model
     [TestClass]
     public class ASFileParserTest
     {
+
+        #region AS3
+
         [TestMethod]
         public void TestParseAS3File()
         {
@@ -61,6 +64,18 @@ namespace ASCompletion.Test.Model
             MemberModel member1 = classModel.Members[1];
             Assert.IsFalse(member0.Equals(member1));
         }
+
+        [TestMethod]
+        public void TestParserAS3FileWithUserObjectClass()
+        {
+            FileModel fileModel = ASFileParser.ParseFile(new FileModel(PathHelper.as3FileWithUserObjectClass));
+            ClassModel classModel = fileModel.GetClassByName("Object");
+            Assert.IsNotNull(classModel);
+            Assert.AreEqual(1, classModel.Members.Count);
+            Assert.AreEqual(classModel.Members[0].Name, "Object");
+        }
+
+        #endregion
 
         [TestMethod]
         public void TestParseHaxeFile()
