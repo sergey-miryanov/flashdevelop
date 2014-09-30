@@ -12,9 +12,9 @@ using WeifenLuo.WinFormsUI.Docking;
 
 namespace FlashDevelop.Mock
 {
-    public class MainFormMock : IMainForm, IMessageFilter
+    public class MainForm : IMainForm, IMessageFilter
     {
-        public MainFormMock()
+        public MainForm()
         {
             Type type = typeof(PluginBase);
             MemberInfo member = type.GetMember("instance", BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Static)[0];
