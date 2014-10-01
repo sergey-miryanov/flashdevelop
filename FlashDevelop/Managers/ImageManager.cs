@@ -9,7 +9,7 @@ using PluginCore.Helpers;
 
 namespace FlashDevelop.Managers
 {
-    class ImageManager
+    public class ImageManager
     {
         public static Int32 X;
         public static Int32 Y;

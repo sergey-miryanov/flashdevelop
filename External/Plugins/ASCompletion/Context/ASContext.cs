@@ -120,10 +120,13 @@ namespace ASCompletion.Context
                 }
                 //if (context.Settings != null) TraceManager.Add("Set context... " + (++setCount) + " " + context.Settings.LanguageId);
                 // Update toolbar/menus state depending on the context state
-                bool isValid = context.IsFileValid;
-                foreach (ToolStripItem item in plugin.MenuItems)
+                if (plugin.MenuItems != null)
                 {
-                    item.Enabled = isValid;
+                    bool isValid = context.IsFileValid;
+                    foreach (ToolStripItem item in plugin.MenuItems)
+                    {
+                        item.Enabled = isValid;
+                    }
                 }
             }
 		}
@@ -170,7 +173,7 @@ namespace ASCompletion.Context
         {
             get
             {
-                if (cFile.OutOfDate) UpdateCurrentFile(true);
+                if (cFile == null || cFile.OutOfDate) UpdateCurrentFile(true);
                 return cMember;
             }
         }
@@ -179,7 +182,7 @@ namespace ASCompletion.Context
 		{
 			get
             {
-                if (cFile.OutOfDate) UpdateCurrentFile(true);
+                if (cFile == null || cFile.OutOfDate) UpdateCurrentFile(true);
 				return (cClass != null) ? cClass : ClassModel.VoidClass;
 			}
             set { cClass = value; }

@@ -13,7 +13,7 @@ using System.Drawing;
 
 namespace FlashDevelop.Managers
 {
-    static class StripBarManager
+    public static class StripBarManager
     {
         public static List<ToolStripItem> Items = new List<ToolStripItem>();
 

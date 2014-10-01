@@ -10,7 +10,7 @@ using PluginCore.Localization;
 
 namespace FlashDevelop.Helpers
 {
-    class ResourceHelper
+    public class ResourceHelper
     {
         /// <summary>
         /// Gets the specified resource as an stream

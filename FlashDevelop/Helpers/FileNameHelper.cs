@@ -7,7 +7,7 @@ using PluginCore.Helpers;
 
 namespace FlashDevelop.Helpers
 {
-    class FileNameHelper
+    public class FileNameHelper
     {
         /// <summary>
         /// Path to the system image file

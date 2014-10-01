@@ -12,7 +12,7 @@ using PluginCore;
 
 namespace FlashDevelop.Managers
 {
-    class LayoutManager
+    public class LayoutManager
     {
         public static List<DockContent> PluginPanels;
         public static DeserializeDockContent ContentDeserializer;

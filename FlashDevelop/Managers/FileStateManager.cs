@@ -13,7 +13,7 @@ using PluginCore;
 
 namespace FlashDevelop.Managers
 {
-    class FileStateManager
+    public class FileStateManager
     {
         /// <summary>
         /// Saves the file state to a binary file
