@@ -1,13 +1,6 @@
-﻿using System;
+﻿using ASCompletion.Model;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using FlashDevelop.Mock;
-using FlashDevelop.Mock.Docking;
-using PluginCore;
 using PluginCore.Utilities;
-using System.Collections.Generic;
-using ASCompletion.Model;
-using System.Windows.Forms;
-using System.Diagnostics;
 using System.IO;
 
 namespace ASCompletion.Test.Context
