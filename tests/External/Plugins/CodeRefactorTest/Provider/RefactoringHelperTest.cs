@@ -12,7 +12,7 @@ namespace CodeRefactor.Test.Provider
         {
             IMainForm mainForm = new FlashDevelop.Mock.MainForm();
             SingleInstanceApp.Initialize();
-            //PluginBase.MainForm.OpenEditableDocument("../../Resources/AS3TestProj/src/Main.as");
+            PluginBase.MainForm.OpenEditableDocument("../../Resources/AS3TestProj/src/Main.as");
         }
 
         [TestMethod]

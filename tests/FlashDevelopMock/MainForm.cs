@@ -1,8 +1,16 @@
-﻿using FlashDevelop.Docking;
+﻿using FlashDevelop.Dialogs;
+using FlashDevelop.Docking;
+using FlashDevelop.Helpers;
+using FlashDevelop.Managers;
+using FlashDevelop.Mock.Managers;
+using FlashDevelop.Settings;
 using PluginCore;
 using PluginCore.Helpers;
 using PluginCore.Managers;
+using PluginCore.Utilities;
+using ScintillaNet.Configuration;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Reflection;
@@ -14,11 +22,36 @@ namespace FlashDevelop.Mock
 {
     public class MainForm : IMainForm, IMessageFilter
     {
+        public static MainForm Instance;
+        private DockPanel dockPanel;
+        private FRInFilesDialog frInFilesDialog;
+        private SettingObject appSettings;
+        private ContextMenuStrip editorMenu;
+        private bool isFullScreen = false;
+
         public MainForm()
         {
             Type type = typeof(PluginBase);
             MemberInfo member = type.GetMember("instance", BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Static)[0];
             ((FieldInfo)member).SetValue(null, this);//PluginBase.Initialize(this);
+            InitializeSettings();
+            dockPanel = new DockPanel();
+            Instance = this;
+        }
+
+        /// <summary>
+        /// Initializes the application settings
+        /// </summary>
+        private void InitializeSettings()
+        {
+            this.appSettings = SettingObject.GetDefaultSettings();
+            if (File.Exists(FileNameHelper.SettingData))
+            {
+                Object obj = ObjectSerializer.Deserialize(FileNameHelper.SettingData, this.appSettings, false);
+                this.appSettings = (SettingObject)obj;
+            }
+            SettingObject.EnsureValidity(this.appSettings);
+            FileStateManager.RemoveOldStateFiles();
         }
 
         public void RefreshUI()
@@ -71,11 +104,11 @@ namespace FlashDevelop.Mock
             throw new NotImplementedException();
         }
 
-        public DockContent OpenEditableDocument(String org, Encoding encoding, Boolean restorePosition)
+        public DockContent OpenEditableDocument(string org, Encoding encoding, bool restorePosition)
         {
             DockContent createdDoc;
             EncodingFileInfo info;
-            String file = PathHelper.GetPhysicalPathName(org);
+            string file = PathHelper.GetPhysicalPathName(org);
             TextEvent te = new TextEvent(EventType.FileOpening, file);
             EventManager.DispatchEvent(this, te);
             if (te.Handled)
@@ -97,7 +130,7 @@ namespace FlashDevelop.Mock
                 this.CallCommand("ExtractZip", file);
                 if (file.ToLower().IndexOf("theme") != -1)
                 {
-                    String currentTheme = Path.Combine(PathHelper.ThemesDir, "CURRENT");
+                    string currentTheme = Path.Combine(PathHelper.ThemesDir, "CURRENT");
                     //if (File.Exists(currentTheme)) ThemeManager.LoadTheme(currentTheme);
                     this.RefreshSciConfig();
                     //this.Refresh();
@@ -106,8 +139,8 @@ namespace FlashDevelop.Mock
             }
             try
             {
-                Int32 count = this.Documents.Length;
-                for (Int32 i = 0; i < count; i++)
+                int count = this.Documents.Length;
+                for (int i = 0; i < count; i++)
                 {
                     if (this.Documents[i].IsEditable && this.Documents[i].FileName.ToUpper() == file.ToUpper())
                     {
@@ -153,7 +186,7 @@ namespace FlashDevelop.Mock
                 createdDoc = this.CreateEditableDocument(file, info.Contents, info.CodePage);
                 //ButtonManager.AddNewReopenMenuItem(file);
             }
-            TabbedDocument document = (TabbedDocument)createdDoc;
+            FlashDevelop.Mock.Docking.TabbedDocument document = (FlashDevelop.Mock.Docking.TabbedDocument)createdDoc;
             document.SciControl.SaveBOM = info.ContainsBOM;
             document.SciControl.BeginInvoke((MethodInvoker)delegate
             {
@@ -165,43 +198,44 @@ namespace FlashDevelop.Mock
             //ButtonManager.UpdateFlaggedButtons();
             return createdDoc;
         }
-        public DockContent OpenEditableDocument(String file, Boolean restorePosition)
+        public DockContent OpenEditableDocument(string file, bool restorePosition)
         {
             return this.OpenEditableDocument(file, null, restorePosition);
         }
-        public DockContent OpenEditableDocument(String file)
+        public DockContent OpenEditableDocument(string file)
         {
             return this.OpenEditableDocument(file, null, true);
         }
 
-        public WeifenLuo.WinFormsUI.Docking.DockContent CreateCustomDocument(Control ctrl)
+        public DockContent CreateCustomDocument(Control ctrl)
         {
             throw new NotImplementedException();
         }
 
-        public WeifenLuo.WinFormsUI.Docking.DockContent CreateEditableDocument(string file, string text, int codepage)
+        public DockContent CreateEditableDocument(string file, string text, int codepage)
         {
-            try
-            {
-                //this.notifyOpenFile = true;
-                TabbedDocument tabbedDocument = new TabbedDocument();
-                //tabbedDocument.Closing += new System.ComponentModel.CancelEventHandler(this.OnDocumentClosing);
-                //tabbedDocument.Closed += new System.EventHandler(this.OnDocumentClosed);
-                //tabbedDocument.TabPageContextMenuStrip = this.tabMenu;
-                //tabbedDocument.ContextMenuStrip = this.editorMenu;
-                tabbedDocument.Text = Path.GetFileName(file);
-                tabbedDocument.AddEditorControls(file, text, codepage);
-                tabbedDocument.Show();
-                return tabbedDocument;
-            }
-            catch (Exception ex)
-            {
-                //ErrorManager.ShowError(ex);
-                return null;
-            }
+            Console.WriteLine(file);
+            Console.WriteLine(text);
+            Console.WriteLine(codepage);
+            Debug.WriteLine(file);
+            Debug.WriteLine(text);
+            Debug.WriteLine(codepage);
+            Trace.WriteLine(file);
+            Trace.WriteLine(text);
+            Trace.WriteLine(codepage);
+            //this.notifyOpenFile = true;
+            FlashDevelop.Mock.Docking.TabbedDocument tabbedDocument = new FlashDevelop.Mock.Docking.TabbedDocument();
+            //tabbedDocument.Closing += new System.ComponentModel.CancelEventHandler(this.OnDocumentClosing);
+            //tabbedDocument.Closed += new System.EventHandler(this.OnDocumentClosed);
+            //tabbedDocument.TabPageContextMenuStrip = this.tabMenu;
+            //tabbedDocument.ContextMenuStrip = this.editorMenu;
+            tabbedDocument.Text = Path.GetFileName(file);
+            tabbedDocument.AddEditorControls(file, text, codepage);
+            //tabbedDocument.Show();
+            return tabbedDocument;
         }
 
-        public WeifenLuo.WinFormsUI.Docking.DockContent CreateDockablePanel(Control form, string guid, System.Drawing.Image image, WeifenLuo.WinFormsUI.Docking.DockState defaultDockState)
+        public DockContent CreateDockablePanel(Control form, string guid, System.Drawing.Image image, WeifenLuo.WinFormsUI.Docking.DockState defaultDockState)
         {
             throw new NotImplementedException();
         }
@@ -211,7 +245,7 @@ namespace FlashDevelop.Mock
             throw new NotImplementedException();
         }
 
-        public System.Collections.Generic.List<ToolStripItem> FindMenuItems(string name)
+        public List<ToolStripItem> FindMenuItems(string name)
         {
             throw new NotImplementedException();
         }
@@ -251,9 +285,21 @@ namespace FlashDevelop.Mock
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// Gets the Settings interface
+        /// </summary>
         public ISettings Settings
         {
-            get { throw new NotImplementedException(); }
+            get { return (ISettings)this.appSettings; }
+        }
+
+        /// <summary>
+        /// Gets or sets the actual Settings
+        /// </summary>
+        public SettingObject AppSettings
+        {
+            get { return this.appSettings; }
+            set { this.appSettings = value; }
         }
 
         public ToolStrip ToolStrip
@@ -266,14 +312,20 @@ namespace FlashDevelop.Mock
             get { throw new NotImplementedException(); }
         }
 
-        public ScintillaNet.Configuration.Scintilla SciConfig
+        /// <summary>
+        /// Gets the Scintilla configuration
+        /// </summary>
+        public Scintilla SciConfig
         {
-            get { throw new NotImplementedException(); }
+            get { return ScintillaManager.SciConfig; }
         }
 
-        public WeifenLuo.WinFormsUI.Docking.DockPanel DockPanel
+        /// <summary>
+        /// Gets the DockPanel
+        /// </summary> 
+        public DockPanel DockPanel
         {
-            get { throw new NotImplementedException(); }
+            get { return this.dockPanel; }
         }
 
         public string[] StartArguments
@@ -281,9 +333,12 @@ namespace FlashDevelop.Mock
             get { throw new NotImplementedException(); }
         }
 
-        public System.Collections.Generic.List<Argument> CustomArguments
+        /// <summary>
+        /// Gets the application custom args
+        /// </summary>
+        public List<Argument> CustomArguments
         {
-            get { throw new NotImplementedException(); }
+            get { return ArgumentDialog.CustomArguments; }
         }
 
         public StatusStrip StatusStrip
@@ -333,19 +388,42 @@ namespace FlashDevelop.Mock
             get { throw new NotImplementedException(); }
         }
 
+        /// <summary>
+        /// Gets the EditorMenu
+        /// </summary>
         public ContextMenuStrip EditorMenu
         {
-            get { throw new NotImplementedException(); }
+            get { return this.editorMenu; }
         }
 
+        /// <summary>
+        /// Gets the CurrentDocument
+        /// </summary>
         public ITabbedDocument CurrentDocument
         {
-            get { throw new NotImplementedException(); }
+            get { return this.dockPanel.ActiveDocument as ITabbedDocument; }
         }
 
         public ITabbedDocument[] Documents
         {
-            get { throw new NotImplementedException(); }
+            get
+            {
+                List<ITabbedDocument> documents = new List<ITabbedDocument>();
+                foreach (DockPane pane in DockPanel.Panes)
+                {
+                    if (pane.DockState == DockState.Document)
+                    {
+                        foreach (IDockContent content in pane.Contents)
+                        {
+                            if (content is TabbedDocument)
+                            {
+                                documents.Add(content as TabbedDocument);
+                            }
+                        }
+                    }
+                }
+                return documents.ToArray();
+            }
         }
 
         public bool HasModifiedDocuments
@@ -390,22 +468,22 @@ namespace FlashDevelop.Mock
 
         public bool IsFullScreen
         {
-            get { throw new NotImplementedException(); }
+            get { return isFullScreen; }
         }
 
         public bool StandaloneMode
         {
-            get { throw new NotImplementedException(); }
+            get { return false; }
         }
 
         public bool MultiInstanceMode
         {
-            get { throw new NotImplementedException(); }
+            get { return false; }
         }
 
         public bool IsFirstInstance
         {
-            get { throw new NotImplementedException(); }
+            get { return true; }
         }
 
         public bool RestartRequested
@@ -435,7 +513,7 @@ namespace FlashDevelop.Mock
 
         public IntPtr Handle
         {
-            get { throw new NotImplementedException(); }
+            get { return new IntPtr(); }
         }
 
         public bool PreFilterMessage(ref Message m)
@@ -452,6 +530,31 @@ namespace FlashDevelop.Mock
             {
                 this.CreateEditableDocument(fileName, "", Encoding.UTF8.CodePage);
             }
+        }
+
+        public void ApplyAllSettings()
+        {
+            //if (this.InvokeRequired)
+            //{
+            //    this.BeginInvoke((MethodInvoker)delegate { this.ApplyAllSettings(); });
+            //    return;
+            //}
+            //FlashDevelop.Managers.ShortcutManager.ApplyAllShortcuts();
+            EventManager.DispatchEvent(this, new NotifyEvent(EventType.ApplySettings));
+            for (int i = 0; i < this.Documents.Length; i++)
+            {
+                ITabbedDocument document = this.Documents[i];
+                if (document.IsEditable)
+                {
+                    ScintillaManager.ApplySciSettings(document.SplitSci1, true);
+                    ScintillaManager.ApplySciSettings(document.SplitSci2, true);
+                }
+            }
+            //this.frInFilesDialog.UpdateSettings();
+            //this.statusStrip.Visible = this.appSettings.ViewStatusBar;
+            //this.toolStrip.Visible = this.isFullScreen ? false : this.appSettings.ViewToolBar;
+            //ButtonManager.UpdateFlaggedButtons();
+            //TabTextManager.UpdateTabTexts();
         }
     }
 }
