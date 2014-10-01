@@ -40,7 +40,7 @@ namespace WeifenLuo.WinFormsUI.Docking
 				ControlStyles.AllPaintingInWmPaint, true);
 
             SuspendLayout();
-            Font = PluginCore.PluginBase.Settings.DefaultFont;
+            //Font = PluginCore.PluginBase.Settings.DefaultFont;
 
 			m_autoHideWindow = new AutoHideWindowControl(this);
 			m_autoHideWindow.Visible = false;
