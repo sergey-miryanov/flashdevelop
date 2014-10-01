@@ -50,5 +50,18 @@ namespace ASCompletion.Test.Context
             Assert.AreEqual(ClassModel.VoidClass, context.GetModel("flashdevelop", "TestClass", ""));
             Assert.AreEqual(ClassModel.VoidClass, context.GetModel("flashdevelop", "TestClass", "tests"));
         }
+
+        [TestMethod]
+        public void TestCreateFileModel()
+        {
+            string fileName = Path.GetFullPath(PathHelper.as3FileWithUserObjectClass);
+            ASCompletion.Context.ASContext context = (ASCompletion.Context.ASContext)ASCompletion.Context.ASContext.Context;
+            FileModel aFile = context.CreateFileModel(fileName);
+            Assert.IsNotNull(aFile);
+            Assert.AreEqual(fileName, aFile.FileName);
+            Assert.AreEqual(0, aFile.Classes.Count);
+            Assert.AreEqual(0, aFile.Members.Count);
+            Assert.IsFalse(aFile.HasPackage);
+        }
     }
 }
