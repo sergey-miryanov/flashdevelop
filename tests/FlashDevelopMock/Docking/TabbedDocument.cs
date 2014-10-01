@@ -7,7 +7,7 @@ using WeifenLuo.WinFormsUI.Docking;
 
 namespace FlashDevelop.Mock.Docking
 {
-    class TabbedDocument : DockContent, ITabbedDocument
+    public class TabbedDocument : DockContent, ITabbedDocument
     {
         private ScintillaControl editor;
         private ScintillaControl editor2;

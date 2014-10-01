@@ -1,17 +1,19 @@
 ﻿using FlashDevelop.Dialogs;
-using FlashDevelop.Docking;
 using FlashDevelop.Helpers;
 using FlashDevelop.Managers;
+using FlashDevelop.Mock.Docking;
 using FlashDevelop.Mock.Managers;
 using FlashDevelop.Settings;
 using PluginCore;
 using PluginCore.Helpers;
+using PluginCore.Localization;
 using PluginCore.Managers;
 using PluginCore.Utilities;
 using ScintillaNet.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Drawing;
 using System.IO;
 using System.Reflection;
 using System.Text;
@@ -20,10 +22,11 @@ using WeifenLuo.WinFormsUI.Docking;
 
 namespace FlashDevelop.Mock
 {
-    public class MainForm : IMainForm, IMessageFilter
+    public class MainForm : Form, IMainForm, IMessageFilter
     {
         public static MainForm Instance;
         private DockPanel dockPanel;
+        private ToolStrip toolStrip;
         private FRInFilesDialog frInFilesDialog;
         private SettingObject appSettings;
         private ContextMenuStrip editorMenu;
@@ -76,7 +79,7 @@ namespace FlashDevelop.Mock
 
         public void ShowErrorDialog(object sender, Exception ex)
         {
-            throw new NotImplementedException();
+            Debug.WriteLine(ex);
         }
 
         public void ShowSettingsDialog(string itemName, string filter)
@@ -91,12 +94,10 @@ namespace FlashDevelop.Mock
 
         public void RegisterShortcutItem(string id, Keys keys)
         {
-            throw new NotImplementedException();
         }
 
         public void RegisterShortcutItem(string id, ToolStripMenuItem item)
         {
-            throw new NotImplementedException();
         }
 
         public void FileFromTemplate(string templatePath, string newFilePath)
@@ -207,22 +208,26 @@ namespace FlashDevelop.Mock
             return this.OpenEditableDocument(file, null, true);
         }
 
+        /// <summary>
+        /// Creates a new custom document
+        /// </summary>
         public DockContent CreateCustomDocument(Control ctrl)
         {
-            throw new NotImplementedException();
+            TabbedDocument tabbedDocument = new TabbedDocument();
+            //tabbedDocument.Closing += new System.ComponentModel.CancelEventHandler(this.OnDocumentClosing);
+            //tabbedDocument.Closed += new System.EventHandler(this.OnDocumentClosed);
+            tabbedDocument.Text = TextHelper.GetString("Title.CustomDocument");
+            //tabbedDocument.TabPageContextMenuStrip = this.tabMenu;
+            tabbedDocument.Controls.Add(ctrl);
+            tabbedDocument.Show();
+            return tabbedDocument;
         }
 
+        /// <summary>
+        /// Creates a new empty document
+        /// </summary>
         public DockContent CreateEditableDocument(string file, string text, int codepage)
         {
-            Console.WriteLine(file);
-            Console.WriteLine(text);
-            Console.WriteLine(codepage);
-            Debug.WriteLine(file);
-            Debug.WriteLine(text);
-            Debug.WriteLine(codepage);
-            Trace.WriteLine(file);
-            Trace.WriteLine(text);
-            Trace.WriteLine(codepage);
             //this.notifyOpenFile = true;
             FlashDevelop.Mock.Docking.TabbedDocument tabbedDocument = new FlashDevelop.Mock.Docking.TabbedDocument();
             //tabbedDocument.Closing += new System.ComponentModel.CancelEventHandler(this.OnDocumentClosing);
@@ -235,9 +240,16 @@ namespace FlashDevelop.Mock
             return tabbedDocument;
         }
 
-        public DockContent CreateDockablePanel(Control form, string guid, System.Drawing.Image image, WeifenLuo.WinFormsUI.Docking.DockState defaultDockState)
+        /// <summary>
+        /// Creates a floating panel for the plugin
+        /// </summary>
+        public DockContent CreateDockablePanel(Control ctrl, String guid, Image image, DockState defaultDockState)
         {
-            throw new NotImplementedException();
+            DockablePanel dockablePanel = new DockablePanel(ctrl, guid);
+            if (image != null) dockablePanel.Icon = ImageKonverter.ImageToIcon(image);
+            dockablePanel.DockState = defaultDockState;
+            LayoutManager.PluginPanels.Add(dockablePanel);
+            return dockablePanel;
         }
 
         public bool CallCommand(string command, string arguments)
@@ -250,9 +262,12 @@ namespace FlashDevelop.Mock
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// Finds the specified menu item by name
+        /// </summary>
         public ToolStripItem FindMenuItem(string name)
         {
-            throw new NotImplementedException();
+            return StripBarManager.FindMenuItem(name);
         }
 
         public string ProcessArgString(string args)
@@ -270,9 +285,9 @@ namespace FlashDevelop.Mock
             throw new NotImplementedException();
         }
 
-        public System.Drawing.Color GetThemeColor(string id)
+        public Color GetThemeColor(string id)
         {
-            throw new NotImplementedException();
+            return Color.Empty;
         }
 
         public IPlugin FindPlugin(string guid)
@@ -280,9 +295,12 @@ namespace FlashDevelop.Mock
             throw new NotImplementedException();
         }
 
-        public System.Drawing.Image FindImage(string data)
+        /// <summary>
+        /// Finds the specified composed/ready image
+        /// </summary>
+        public Image FindImage(string data)
         {
-            throw new NotImplementedException();
+            return new Bitmap(16, 16);
         }
 
         /// <summary>
@@ -302,9 +320,12 @@ namespace FlashDevelop.Mock
             set { this.appSettings = value; }
         }
 
+        /// <summary>
+        /// Gets the tool strip
+        /// </summary>
         public ToolStrip ToolStrip
         {
-            get { throw new NotImplementedException(); }
+            get { return this.toolStrip; }
         }
 
         public MenuStrip MenuStrip
@@ -380,7 +401,7 @@ namespace FlashDevelop.Mock
 
         public Control.ControlCollection Controls
         {
-            get { throw new NotImplementedException(); }
+            get { return new Control.ControlCollection(this); }
         }
 
         public ContextMenuStrip TabMenu
@@ -496,9 +517,9 @@ namespace FlashDevelop.Mock
             get { throw new NotImplementedException(); }
         }
 
-        public System.Collections.Generic.List<Keys> IgnoredKeys
+        public List<Keys> IgnoredKeys
         {
-            get { throw new NotImplementedException(); }
+            get { return new List<Keys>(); }
         }
 
         public string ProductVersion
