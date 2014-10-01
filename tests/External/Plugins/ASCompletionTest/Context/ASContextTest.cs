@@ -72,5 +72,16 @@ namespace ASCompletion.Test.Context
             Assert.AreEqual(fileName, aFile.FileName);
             Assert.AreEqual(context, aFile.Context);
         }
+
+        [TestMethod]
+        public void TestGetFileModelForInvalidFile()
+        {
+            string fileName = "";
+            ASCompletion.Context.ASContext context = (ASCompletion.Context.ASContext)ASCompletion.Context.ASContext.Context;
+            FileModel aFile = context.GetFileModel(fileName);
+            Assert.IsNotNull(aFile);
+            Assert.AreEqual(fileName, aFile.FileName);
+            Assert.IsNull(aFile.Context);
+        }
     }
 }
