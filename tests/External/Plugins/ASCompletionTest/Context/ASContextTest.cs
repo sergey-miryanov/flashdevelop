@@ -41,5 +41,14 @@ namespace ASCompletion.Test.Context
             Assert.IsNull(context.TopLevel);
             Assert.IsNull(context.Classpath);
         }
+
+        [TestMethod]
+        public void TestGetModel()
+        {
+            ASCompletion.Context.ASContext context = (ASCompletion.Context.ASContext)ASCompletion.Context.ASContext.Context;
+            Assert.AreEqual(ClassModel.VoidClass, context.GetModel("", "", ""));
+            Assert.AreEqual(ClassModel.VoidClass, context.GetModel("flashdevelop", "TestClass", ""));
+            Assert.AreEqual(ClassModel.VoidClass, context.GetModel("flashdevelop", "TestClass", "tests"));
+        }
     }
 }
