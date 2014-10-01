@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PluginCore;
 using PluginCore.Utilities;
+using FlashDevelop.Mock;
 
 namespace CodeRefactor.Test.Provider
 {
@@ -10,7 +11,7 @@ namespace CodeRefactor.Test.Provider
         [TestInitialize]
         public void Initialize()
         {
-            IMainForm mainForm = new FlashDevelop.Mock.MainForm();
+            MainForm mainForm = new MainForm();
             SingleInstanceApp.Initialize();
             PluginBase.MainForm.OpenEditableDocument("../../Resources/AS3TestProj/src/Main.as");
         }

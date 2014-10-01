@@ -40,6 +40,7 @@
       <HintPath>..\..\..\..\FlashDevelop\Bin\Debug\Plugins\ASCompletion.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <Choose>
     <When Condition="('$(VisualStudioVersion)' == '10.0' or '$(VisualStudioVersion)' == '') and '$(TargetFrameworkVersion)' == 'v3.5'">
@@ -54,6 +55,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="Context\ASContextTest.cs" />
     <Compile Include="Model\MemberModelTest.cs" />
     <Compile Include="PathHelper.cs" />
     <Compile Include="Model\ASFileParserTest.cs" />
@@ -77,6 +79,10 @@
     <ProjectReference Include="..\..\..\..\PluginCore\PluginCore.csproj">
       <Project>{61885f70-b4dc-4b44-852d-5d6d03f2a734}</Project>
       <Name>PluginCore</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\FlashDevelopMock\FlashDevelop.Mock.csproj">
+      <Project>{466a2420-caf7-4900-a75b-04de72ba531e}</Project>
+      <Name>FlashDevelop.Mock</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />
