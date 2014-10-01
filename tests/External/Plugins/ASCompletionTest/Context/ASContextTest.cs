@@ -90,5 +90,11 @@ namespace ASCompletion.Test.Context
             FileModel aFile = context.GetFileModel(fileName);
             Assert.AreEqual(3, aFile.Version);
         }
+
+        [TestMethod]
+        public void TestGetCachedFileModel()
+        {
+            Assert.IsNotNull(null);
+        }
     }
 }
