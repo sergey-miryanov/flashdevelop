@@ -79,9 +79,16 @@ namespace ASCompletion.Test.Context
             string fileName = "";
             ASCompletion.Context.ASContext context = (ASCompletion.Context.ASContext)ASCompletion.Context.ASContext.Context;
             FileModel aFile = context.GetFileModel(fileName);
-            Assert.IsNotNull(aFile);
-            Assert.AreEqual(fileName, aFile.FileName);
-            Assert.IsNull(aFile.Context);
+            Assert.AreEqual(0, aFile.Version);
+        }
+
+        [TestMethod]
+        public void TestGetFileModelForValidFile()
+        {
+            string fileName = Path.GetFullPath(PathHelper.as3FileWithUserObjectClass);
+            ASCompletion.Context.ASContext context = (ASCompletion.Context.ASContext)ASCompletion.Context.ASContext.Context;
+            FileModel aFile = context.GetFileModel(fileName);
+            Assert.AreEqual(3, aFile.Version);
         }
     }
 }
