@@ -143,5 +143,14 @@ namespace ASCompletion.Test.Context
             ASCompletion.Context.ASContext context = (ASCompletion.Context.ASContext)ASCompletion.Context.ASContext.Context;
             Assert.AreEqual("src", context.FilterSource(string.Empty, "src"));
         }
+
+        [TestMethod]
+        public void TestIsModelValidForEmptyFileName()
+        {
+            string fileName = string.Empty;
+            ASCompletion.Context.ASContext context = (ASCompletion.Context.ASContext)ASCompletion.Context.ASContext.Context;
+            FileModel aFile = context.GetCachedFileModel(fileName);
+            Assert.IsTrue(context.IsModelValid(aFile, null));
+        }
     }
 }
