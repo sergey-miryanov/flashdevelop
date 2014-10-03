@@ -159,5 +159,12 @@ namespace ASCompletion.Test.Context
             FileModel aFile = context.GetFileModel(fileName);
             Assert.IsTrue(context.IsModelValid(aFile, null));
         }
+
+        [TestMethod]
+        public void TestGetDeclarationAtLineForEmptyContext()
+        {
+            ASCompletion.Context.ASContext context = (ASCompletion.Context.ASContext)ASCompletion.Context.ASContext.Context;
+            Assert.IsNull(context.GetDeclarationAtLine(0));
+        }
     }
 }
