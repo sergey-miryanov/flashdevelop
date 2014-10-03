@@ -87,6 +87,15 @@ namespace ASCompletion.Test.Context
         }
 
         [TestMethod]
+        public void TestGetFileModelForNullFileName()
+        {
+            string fileName = null;
+            ASCompletion.Context.ASContext context = (ASCompletion.Context.ASContext)ASCompletion.Context.ASContext.Context;
+            FileModel aFile = context.GetFileModel(fileName);
+            Assert.AreEqual(0, aFile.Version);
+        }
+
+        [TestMethod]
         public void TestGetFileModelForValidFile()
         {
             string fileName = Path.GetFullPath(PathHelper.as3FileWithUserObjectClass);
