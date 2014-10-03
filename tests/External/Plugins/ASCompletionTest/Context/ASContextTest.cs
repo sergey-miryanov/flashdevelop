@@ -78,7 +78,7 @@ namespace ASCompletion.Test.Context
         }
 
         [TestMethod]
-        public void TestGetFileModelForInvalidFile()
+        public void TestGetFileModelForEmptyFileName()
         {
             string fileName = "";
             ASCompletion.Context.ASContext context = (ASCompletion.Context.ASContext)ASCompletion.Context.ASContext.Context;
