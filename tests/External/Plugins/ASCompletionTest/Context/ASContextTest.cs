@@ -114,5 +114,16 @@ namespace ASCompletion.Test.Context
             Assert.IsTrue(string.IsNullOrEmpty(aFile.FileName));
             Assert.AreEqual(0, aFile.Version);
         }
+
+        [TestMethod]
+        public void TestGetCachedFileModelForNullFileName()
+        {
+            string fileName = null;
+            ASCompletion.Context.ASContext context = (ASCompletion.Context.ASContext)ASCompletion.Context.ASContext.Context;
+            FileModel aFile = context.GetCachedFileModel(fileName);
+            Assert.IsNotNull(aFile);
+            Assert.IsTrue(string.IsNullOrEmpty(aFile.FileName));
+            Assert.AreEqual(0, aFile.Version);
+        }
     }
 }
