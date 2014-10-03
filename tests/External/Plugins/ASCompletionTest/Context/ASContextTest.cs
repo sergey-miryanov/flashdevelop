@@ -136,5 +136,12 @@ namespace ASCompletion.Test.Context
             Assert.AreEqual(fileName, aFile.FileName);
             Assert.AreEqual(3, aFile.Version);
         }
+
+        [TestMethod]
+        public void TestFilterSource()
+        {
+            ASCompletion.Context.ASContext context = (ASCompletion.Context.ASContext)ASCompletion.Context.ASContext.Context;
+            Assert.AreEqual("src", context.FilterSource(string.Empty, "src"));
+        }
     }
 }
