@@ -56,6 +56,17 @@ namespace ASCompletion.Test.Context
         }
 
         [TestMethod]
+        public void TestCreateFileModelForNullFileName()
+        {
+            string fileName = null;
+            ASCompletion.Context.ASContext context = (ASCompletion.Context.ASContext)ASCompletion.Context.ASContext.Context;
+            FileModel aFile = context.CreateFileModel(fileName);
+            Assert.IsNotNull(aFile);
+            Assert.IsTrue(string.IsNullOrEmpty(aFile.FileName));
+            Assert.IsNull(aFile.Context);
+        }
+
+        [TestMethod]
         public void TestCreateFileModelForValidFile()
         {
             string fileName = Path.GetFullPath(PathHelper.as3FileWithUserObjectClass);
