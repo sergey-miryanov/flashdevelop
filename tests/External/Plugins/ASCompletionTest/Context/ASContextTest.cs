@@ -145,11 +145,18 @@ namespace ASCompletion.Test.Context
         }
 
         [TestMethod]
-        public void TestIsModelValidForEmptyFileName()
+        public void TestIsModelValidForNullFileModel()
         {
-            string fileName = string.Empty;
             ASCompletion.Context.ASContext context = (ASCompletion.Context.ASContext)ASCompletion.Context.ASContext.Context;
-            FileModel aFile = context.GetCachedFileModel(fileName);
+            Assert.IsFalse(context.IsModelValid(null, null));
+        }
+
+        [TestMethod]
+        public void TestIsModelValidForSomeFileModel()
+        {
+            string fileName = Path.GetFullPath(PathHelper.as3FileWithUserObjectClass);
+            ASCompletion.Context.ASContext context = (ASCompletion.Context.ASContext)ASCompletion.Context.ASContext.Context;
+            FileModel aFile = context.GetFileModel(fileName);
             Assert.IsTrue(context.IsModelValid(aFile, null));
         }
     }
