@@ -47,7 +47,7 @@ namespace ASCompletion.Test.Context
         [TestMethod]
         public void TestCreateFileModelForEmptyFileName()
         {
-            string fileName = "";
+            string fileName = string.Empty;
             ASCompletion.Context.ASContext context = (ASCompletion.Context.ASContext)ASCompletion.Context.ASContext.Context;
             FileModel aFile = context.CreateFileModel(fileName);
             Assert.IsNotNull(aFile);
@@ -80,7 +80,7 @@ namespace ASCompletion.Test.Context
         [TestMethod]
         public void TestGetFileModelForEmptyFileName()
         {
-            string fileName = "";
+            string fileName = string.Empty;
             ASCompletion.Context.ASContext context = (ASCompletion.Context.ASContext)ASCompletion.Context.ASContext.Context;
             FileModel aFile = context.GetFileModel(fileName);
             Assert.AreEqual(0, aFile.Version);
