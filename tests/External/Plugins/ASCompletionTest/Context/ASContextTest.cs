@@ -166,5 +166,13 @@ namespace ASCompletion.Test.Context
             ASCompletion.Context.ASContext context = (ASCompletion.Context.ASContext)ASCompletion.Context.ASContext.Context;
             Assert.IsNull(context.GetDeclarationAtLine(0));
         }
+
+        [TestMethod]
+        public void TestGetDeclarationAtLine()
+        {
+            ASCompletion.Context.ASContext context = (ASCompletion.Context.ASContext)ASCompletion.Context.ASContext.Context;
+            context.CurrentFile = Path.GetFullPath(PathHelper.as3FileWithUserObjectClass);
+            Assert.IsNull(context.GetDeclarationAtLine(0));
+        }
     }
 }
