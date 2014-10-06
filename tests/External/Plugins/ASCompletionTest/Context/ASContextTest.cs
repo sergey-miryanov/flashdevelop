@@ -1,13 +1,6 @@
-﻿using System;
+﻿using ASCompletion.Model;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using FlashDevelop.Mock;
-using FlashDevelop.Mock.Docking;
-using PluginCore;
 using PluginCore.Utilities;
-using System.Collections.Generic;
-using ASCompletion.Model;
-using System.Windows.Forms;
-using System.Diagnostics;
 using System.IO;
 
 namespace ASCompletion.Test.Context
@@ -52,13 +45,24 @@ namespace ASCompletion.Test.Context
         }
 
         [TestMethod]
-        public void TestCreateFileModelForInvalidFile()
+        public void TestCreateFileModelForEmptyFileName()
         {
-            string fileName = "";
+            string fileName = string.Empty;
             ASCompletion.Context.ASContext context = (ASCompletion.Context.ASContext)ASCompletion.Context.ASContext.Context;
             FileModel aFile = context.CreateFileModel(fileName);
             Assert.IsNotNull(aFile);
             Assert.AreEqual(fileName, aFile.FileName);
+            Assert.IsNull(aFile.Context);
+        }
+
+        [TestMethod]
+        public void TestCreateFileModelForNullFileName()
+        {
+            string fileName = null;
+            ASCompletion.Context.ASContext context = (ASCompletion.Context.ASContext)ASCompletion.Context.ASContext.Context;
+            FileModel aFile = context.CreateFileModel(fileName);
+            Assert.IsNotNull(aFile);
+            Assert.IsTrue(string.IsNullOrEmpty(aFile.FileName));
             Assert.IsNull(aFile.Context);
         }
 
@@ -74,9 +78,18 @@ namespace ASCompletion.Test.Context
         }
 
         [TestMethod]
-        public void TestGetFileModelForInvalidFile()
+        public void TestGetFileModelForEmptyFileName()
         {
-            string fileName = "";
+            string fileName = string.Empty;
+            ASCompletion.Context.ASContext context = (ASCompletion.Context.ASContext)ASCompletion.Context.ASContext.Context;
+            FileModel aFile = context.GetFileModel(fileName);
+            Assert.AreEqual(0, aFile.Version);
+        }
+
+        [TestMethod]
+        public void TestGetFileModelForNullFileName()
+        {
+            string fileName = null;
             ASCompletion.Context.ASContext context = (ASCompletion.Context.ASContext)ASCompletion.Context.ASContext.Context;
             FileModel aFile = context.GetFileModel(fileName);
             Assert.AreEqual(0, aFile.Version);
@@ -89,6 +102,77 @@ namespace ASCompletion.Test.Context
             ASCompletion.Context.ASContext context = (ASCompletion.Context.ASContext)ASCompletion.Context.ASContext.Context;
             FileModel aFile = context.GetFileModel(fileName);
             Assert.AreEqual(3, aFile.Version);
+        }
+
+        [TestMethod]
+        public void TestGetCachedFileModelForEmptyFileName()
+        {
+            string fileName = string.Empty;
+            ASCompletion.Context.ASContext context = (ASCompletion.Context.ASContext)ASCompletion.Context.ASContext.Context;
+            FileModel aFile = context.GetCachedFileModel(fileName);
+            Assert.IsNotNull(aFile);
+            Assert.IsTrue(string.IsNullOrEmpty(aFile.FileName));
+            Assert.AreEqual(0, aFile.Version);
+        }
+
+        [TestMethod]
+        public void TestGetCachedFileModelForNullFileName()
+        {
+            string fileName = null;
+            ASCompletion.Context.ASContext context = (ASCompletion.Context.ASContext)ASCompletion.Context.ASContext.Context;
+            FileModel aFile = context.GetCachedFileModel(fileName);
+            Assert.IsNotNull(aFile);
+            Assert.IsTrue(string.IsNullOrEmpty(aFile.FileName));
+            Assert.AreEqual(0, aFile.Version);
+        }
+
+        [TestMethod]
+        public void TestGetCachedFileModelForValidFile()
+        {
+            string fileName = Path.GetFullPath(PathHelper.as3FileWithUserObjectClass);
+            ASCompletion.Context.ASContext context = (ASCompletion.Context.ASContext)ASCompletion.Context.ASContext.Context;
+            FileModel aFile = context.GetCachedFileModel(fileName);
+            Assert.IsNotNull(aFile);
+            Assert.AreEqual(fileName, aFile.FileName);
+            Assert.AreEqual(3, aFile.Version);
+        }
+
+        [TestMethod]
+        public void TestFilterSource()
+        {
+            ASCompletion.Context.ASContext context = (ASCompletion.Context.ASContext)ASCompletion.Context.ASContext.Context;
+            Assert.AreEqual("src", context.FilterSource(string.Empty, "src"));
+        }
+
+        [TestMethod]
+        public void TestIsModelValidForNullFileModel()
+        {
+            ASCompletion.Context.ASContext context = (ASCompletion.Context.ASContext)ASCompletion.Context.ASContext.Context;
+            Assert.IsFalse(context.IsModelValid(null, null));
+        }
+
+        [TestMethod]
+        public void TestIsModelValidForSomeFileModel()
+        {
+            string fileName = Path.GetFullPath(PathHelper.as3FileWithUserObjectClass);
+            ASCompletion.Context.ASContext context = (ASCompletion.Context.ASContext)ASCompletion.Context.ASContext.Context;
+            FileModel aFile = context.GetFileModel(fileName);
+            Assert.IsTrue(context.IsModelValid(aFile, null));
+        }
+
+        [TestMethod]
+        public void TestGetDeclarationAtLineForEmptyContext()
+        {
+            ASCompletion.Context.ASContext context = (ASCompletion.Context.ASContext)ASCompletion.Context.ASContext.Context;
+            Assert.IsNull(context.GetDeclarationAtLine(0));
+        }
+
+        [TestMethod]
+        public void TestGetDeclarationAtLine()
+        {
+            ASCompletion.Context.ASContext context = (ASCompletion.Context.ASContext)ASCompletion.Context.ASContext.Context;
+            context.CurrentFile = Path.GetFullPath(PathHelper.as3FileWithUserObjectClass);
+            Assert.IsNull(context.GetDeclarationAtLine(0));
         }
     }
 }
