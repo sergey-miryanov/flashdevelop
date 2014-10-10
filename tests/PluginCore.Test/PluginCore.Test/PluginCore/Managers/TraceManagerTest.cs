@@ -34,5 +34,22 @@ namespace PluginCore.Test.PluginCore.Managers
             Assert.AreEqual("some", item.Message);
             Assert.AreEqual(0, item.State);
         }
+
+        [TestMethod]
+        public void CreateTraceItemWithSomeObject()
+        {
+            SomeObject some = new SomeObject();
+            TraceItem item = new TraceItem(some, 0);
+            Assert.AreEqual(some.ToString(), item.Message);
+            Assert.AreEqual(0, item.State);
+        }
+    }
+
+    class SomeObject
+    {
+        public override string ToString()
+        {
+            return "SomeObject";
+        }
     }
 }
