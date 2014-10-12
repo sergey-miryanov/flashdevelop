@@ -61,6 +61,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\External\Plugins\CodeRefactor\CodeRefactor.csproj">
+      <Project>{1f6df858-6011-4cac-b33e-7000ee90ffbe}</Project>
+      <Name>CodeRefactor</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\External\Plugins\ProjectManager\ProjectManager.csproj">
       <Project>{78101c01-e186-4954-b1dd-debb7905fad8}</Project>
       <Name>ProjectManager</Name>
