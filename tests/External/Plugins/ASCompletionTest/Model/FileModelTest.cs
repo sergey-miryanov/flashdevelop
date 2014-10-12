@@ -14,6 +14,43 @@ namespace ASCompletion.Test.Model
             FileModel fileModel = new FileModel();
             Assert.IsNotNull(fileModel.LastWriteTime);
             Assert.IsFalse(fileModel.haXe);
+            Assert.AreEqual(0, fileModel.Version);
+            Assert.IsTrue(string.IsNullOrEmpty(fileModel.Package));
+            Assert.IsTrue(string.IsNullOrEmpty(fileModel.Module));
+            Assert.IsNotNull(fileModel.Namespaces);
+            Assert.IsNotNull(fileModel.Imports);
+            Assert.IsNotNull(fileModel.Classes);
+            Assert.IsNotNull(fileModel.Members);
+            Assert.IsNotNull(fileModel.Regions);
+            Assert.IsNull(fileModel.GetBasePath());
+            Assert.AreEqual(ClassModel.VoidClass, fileModel.GetPublicClass());
+        }
+
+        [TestMethod]
+        public void TestCreateFileModelWithEmptyFileName()
+        {
+            FileModel fileModel = new FileModel(string.Empty);
+            Assert.IsNotNull(fileModel.LastWriteTime);
+            Assert.IsFalse(fileModel.haXe);
+            Assert.AreEqual(0, fileModel.Version);
+            Assert.IsTrue(string.IsNullOrEmpty(fileModel.Package));
+            Assert.IsTrue(string.IsNullOrEmpty(fileModel.Module));
+            Assert.IsNotNull(fileModel.Namespaces);
+            Assert.IsNotNull(fileModel.Imports);
+            Assert.IsNotNull(fileModel.Classes);
+            Assert.IsNotNull(fileModel.Members);
+            Assert.IsNotNull(fileModel.Regions);
+            Assert.IsNull(fileModel.GetBasePath());
+            Assert.AreEqual(ClassModel.VoidClass, fileModel.GetPublicClass());
+        }
+
+        [TestMethod]
+        public void TestCreateFileModelWithNullFileName()
+        {
+            FileModel fileModel = new FileModel(null);
+            Assert.IsNotNull(fileModel.LastWriteTime);
+            Assert.IsFalse(fileModel.haXe);
+            Assert.AreEqual(0, fileModel.Version);
             Assert.IsTrue(string.IsNullOrEmpty(fileModel.Package));
             Assert.IsTrue(string.IsNullOrEmpty(fileModel.Module));
             Assert.IsNotNull(fileModel.Namespaces);
@@ -30,6 +67,7 @@ namespace ASCompletion.Test.Model
         {
             FileModel fileModel = new FileModel(PathHelper.as3FileName);
             Assert.IsFalse(fileModel.haXe);
+            Assert.AreEqual(0, fileModel.Version);
         }
 
         [TestMethod]
@@ -37,23 +75,8 @@ namespace ASCompletion.Test.Model
         {
             FileModel fileModel = new FileModel(PathHelper.hxFileName);
             Assert.IsTrue(fileModel.haXe);
+            Assert.AreEqual(0, fileModel.Version);
         }
 
-        [TestMethod]
-        public void TestCreateFileModelWithNullFileName()
-        {
-            FileModel fileModel = new FileModel(null);
-            Assert.IsNotNull(fileModel.LastWriteTime);
-            Assert.IsFalse(fileModel.haXe);
-            Assert.IsTrue(string.IsNullOrEmpty(fileModel.Package));
-            Assert.IsTrue(string.IsNullOrEmpty(fileModel.Module));
-            Assert.IsNotNull(fileModel.Namespaces);
-            Assert.IsNotNull(fileModel.Imports);
-            Assert.IsNotNull(fileModel.Classes);
-            Assert.IsNotNull(fileModel.Members);
-            Assert.IsNotNull(fileModel.Regions);
-            Assert.IsNull(fileModel.GetBasePath());
-            Assert.AreEqual(ClassModel.VoidClass, fileModel.GetPublicClass());
-        }
     }
 }
