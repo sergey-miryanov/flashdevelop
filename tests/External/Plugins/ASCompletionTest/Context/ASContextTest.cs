@@ -1,4 +1,5 @@
-﻿using ASCompletion.Model;
+﻿using ASCompletion.Completion;
+using ASCompletion.Model;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PluginCore.Utilities;
 using System.IO;
@@ -164,7 +165,9 @@ namespace ASCompletion.Test.Context
         public void TestGetDeclarationAtLineForEmptyContext()
         {
             ASCompletion.Context.ASContext context = (ASCompletion.Context.ASContext)ASCompletion.Context.ASContext.Context;
-            Assert.IsNull(context.GetDeclarationAtLine(0));
+            ASResult result = context.GetDeclarationAtLine(0);
+            Assert.IsNotNull(result);
+            Assert.IsTrue(result.IsNull());
         }
 
         [TestMethod]

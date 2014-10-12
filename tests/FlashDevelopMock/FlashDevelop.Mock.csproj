@@ -36,15 +36,9 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Docking\DockablePanel.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Docking\TabbedDocument.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="MainForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="Docking\DockablePanel.cs" />
+    <Compile Include="Docking\TabbedDocument.cs" />
+    <Compile Include="MainForm.cs" />
     <Compile Include="Managers\ScintillaManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
