@@ -162,20 +162,23 @@ namespace ASCompletion.Test.Context
         }
 
         [TestMethod]
-        public void TestGetDeclarationAtLineForEmptyContext()
+        public void TestGetDeclarationAtLine0ForEmptyContext()
         {
             ASCompletion.Context.ASContext context = (ASCompletion.Context.ASContext)ASCompletion.Context.ASContext.Context;
+            context.CurrentFile = null;
             ASResult result = context.GetDeclarationAtLine(0);
             Assert.IsNotNull(result);
             Assert.IsTrue(result.IsNull());
         }
 
         [TestMethod]
-        public void TestGetDeclarationAtLine()
+        public void TestGetDeclarationAtLine0ForAS3File()
         {
             ASCompletion.Context.ASContext context = (ASCompletion.Context.ASContext)ASCompletion.Context.ASContext.Context;
             context.CurrentFile = Path.GetFullPath(PathHelper.as3FileWithUserObjectClass);
-            Assert.IsNull(context.GetDeclarationAtLine(0));
+            ASResult result = context.GetDeclarationAtLine(0);
+            Assert.IsNotNull(result);
+            Assert.IsTrue(result.IsNull());
         }
     }
 }
