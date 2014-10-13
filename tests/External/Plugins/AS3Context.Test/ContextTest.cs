@@ -14,7 +14,15 @@ namespace AS3Context.Test
             SingleInstanceApp.Initialize();
             ASCompletion.PluginMain pluginMain = new ASCompletion.PluginMain();
             pluginMain.Initialize();
-            ASCompletion.Context.ASContext.RegisterLanguage(new AS3Context.Context(), "as3");
+            AS3Context.AS3Settings settings = new AS3Context.AS3Settings();
+            AS3Context.Context context = new AS3Context.Context(settings);
+            ASCompletion.Context.ASContext.RegisterLanguage(context, "as3");
+        }
+
+        [TestCleanup]
+        public void Cleanup()
+        {
+            SingleInstanceApp.Close();
         }
     }
 }
