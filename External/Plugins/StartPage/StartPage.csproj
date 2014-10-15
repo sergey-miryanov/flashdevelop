@@ -75,8 +75,6 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Deployment" />
-    <Reference Include="System.DirectoryServices" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
     <Reference Include="System.Windows.Forms" />
@@ -101,7 +99,7 @@
       <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\ProjectManager\ProjectManager.csproj">
-      <Project>{4720DC15-4AFC-4758-9CD5-964492B993B4}</Project>
+      <Project>{78101C01-E186-4954-B1DD-DEBB7905FAD8}</Project>
       <Name>ProjectManager</Name>
       <Private>False</Private>
     </ProjectReference>
