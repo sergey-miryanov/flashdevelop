@@ -1,12 +1,11 @@
-﻿
-using System;
+﻿using System;
 using System.Runtime.InteropServices;
 
 namespace PluginCore
 {
-	public class MacAPI : APIUtils
+	internal class MacAPI : APIUtils
 	{
-		public MacAPI()
+		internal MacAPI()
 		{
 		}
 
@@ -19,6 +18,12 @@ namespace PluginCore
 		{
 			// FIXME: NOT IMPL
 			return new IntPtr();
+		}
+
+		public IntPtr CreateWindowEx(uint dwExStyle, string lpClassName, string lpWindowName, uint dwStyle, int x, int y, int width, int height, IntPtr hWndParent, int hMenu, IntPtr hInstance, string lpParam)
+		{
+			// FIXME slavara: IMPLEMENT ME
+			return IntPtr.Zero;
 		}
 
 		int APIUtils.GetScrollPos(IntPtr hWnd, int nBar)
@@ -41,4 +46,3 @@ namespace PluginCore
 		private static extern IntPtr dlopen(String fileName, int flags);
 	}
 }
-

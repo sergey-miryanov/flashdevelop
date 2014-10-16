@@ -1,11 +1,12 @@
 using System;
+using System.Windows.Forms;
 using System.Runtime.InteropServices;
 
 namespace PluginCore
 {
-	public class LinuxAPI : APIUtils
+	internal class LinuxAPI : APIUtils
 	{
-		public LinuxAPI ()
+		internal LinuxAPI()
 		{
 		}
 
@@ -17,6 +18,12 @@ namespace PluginCore
 		IntPtr APIUtils.SendMessage(IntPtr hWnd, int msg, int wParam, int lParam)
 		{
 			// FIXME: NOT IMPL
+			return new IntPtr();
+		}
+
+		public IntPtr CreateWindowEx(uint dwExStyle, string lpClassName, string lpWindowName, uint dwStyle, int x, int y, int width, int height, IntPtr hWndParent, int hMenu, IntPtr hInstance, string lpParam)
+		{
+			// FIXME slavara: IMPLEMENT ME
 			return new IntPtr();
 		}
 
@@ -38,6 +45,6 @@ namespace PluginCore
 
 		[DllImport("libdl.so")]
 		private static extern IntPtr dlopen(String fileName, int flags);
+
 	}
 }
-
