@@ -42,7 +42,7 @@ namespace PluginCore
 
 		const int RTLD_NOW = 2;
 
-		[DllImport("libdl.so")]
+		[DllImport("libdl")]
 		private static extern IntPtr dlopen(String fileName, int flags);
 	}
 }
