@@ -21,7 +21,7 @@ namespace PluginCore
 					API = new MacAPI();
 					break;
 				case PlatformID.Unix:
-					API = IsRunningOnMac() ? new MacAPI() : new LinuxAPI();
+					API = IsRunningOnMac() ? (APIUtils)new MacAPI() : (APIUtils)new LinuxAPI();
 					break;
 				default: throw new Exception(Environment.OSVersion.ToString());
 			}
