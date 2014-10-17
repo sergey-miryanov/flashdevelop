@@ -47,7 +47,7 @@ namespace ScintillaNet
             try
             {
                 IntPtr lib = OSHelper.API.LoadLibrary(fullpath);
-                hwndScintilla = WinAPI.CreateWindowEx(0, "Scintilla", "", WS_CHILD_VISIBLE_TABSTOP, 0, 0, this.Width, this.Height, this.Handle, 0, new IntPtr(0), null);
+				hwndScintilla = OSHelper.API.CreateWindowEx(0, "Scintilla", "", WS_CHILD_VISIBLE_TABSTOP, 0, 0, this.Width, this.Height, this.Handle, 0, new IntPtr(0), null);
                 directPointer = (int)SlowPerform(2185, 0, 0);
                 UpdateUI += new UpdateUIHandler(OnBraceMatch);
                 UpdateUI += new UpdateUIHandler(OnCancelHighlight);
