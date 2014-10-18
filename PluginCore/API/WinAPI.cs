@@ -55,7 +55,5 @@ namespace PluginCore
 
 		[DllImport("user32", CharSet=CharSet.Auto)] 
 		public static extern IntPtr SendMessage(IntPtr hWnd, int msg, int wParam, int lParam);
-		
 	}
-	
 }

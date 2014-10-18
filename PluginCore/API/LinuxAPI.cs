@@ -1,16 +1,17 @@
 using System;
-using System.Windows.Forms;
 using System.Runtime.InteropServices;
 
 namespace PluginCore
 {
 	internal class LinuxAPI : APIUtils
 	{
+		const int RTLD_NOW = 2;
+
 		internal LinuxAPI()
 		{
 		}
 
-		public IntPtr LoadLibrary(string fileName) 
+		public IntPtr LoadLibrary(string fileName)
 		{
 			return dlopen(fileName, RTLD_NOW);
 		}
@@ -41,10 +42,11 @@ namespace PluginCore
 			return false;
 		}
 
-		const int RTLD_NOW = 2;
-
 		[DllImport("libdl.so")]
 		private static extern IntPtr dlopen(String fileName, int flags);
+
+		[GLib.Signal("create_window")]
+		public event CreateWindowHandler CreateWindow();
 
 	}
 }
