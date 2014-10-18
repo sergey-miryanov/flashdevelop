@@ -44,9 +44,5 @@ namespace PluginCore
 
 		[DllImport("libdl.so")]
 		private static extern IntPtr dlopen(String fileName, int flags);
-
-		[GLib.Signal("create_window")]
-		public event CreateWindowHandler CreateWindow();
-
 	}
 }
