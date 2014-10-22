@@ -4989,9 +4989,6 @@ namespace ScintillaNet
 		public static extern int GetDeviceCaps(IntPtr hdc, Int32 capindex);
 		
 		[DllImport("user32.dll")]
-		public static extern int SendMessage(int hWnd, uint Msg, int wParam, int lParam);
-
-		[DllImport("user32.dll")]
 		public static extern int SetWindowPos(IntPtr hWnd, int hWndInsertAfter, int X, int Y, int cx, int cy, int uFlags);
 		
 		[DllImport("shell32.dll")]
@@ -5008,7 +5005,7 @@ namespace ScintillaNet
 
 		public UInt32 SlowPerform(UInt32 message, UInt32 wParam, UInt32 lParam)
 		{
-			return (UInt32)SendMessage((int)hwndScintilla, message, (int)wParam, (int)lParam);
+            return (UInt32)OSHelper.API.SendMessage(hwndScintilla, (int)message, (int)wParam, (int)lParam);
 		}
 
 		public UInt32 FastPerform(UInt32 message, UInt32 wParam, UInt32 lParam)
