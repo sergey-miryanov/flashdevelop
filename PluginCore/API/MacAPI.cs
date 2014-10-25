@@ -5,6 +5,8 @@ namespace PluginCore
 {
 	internal class MacAPI : APIUtils
 	{
+		const int RTLD_NOW = 2;
+
 		internal MacAPI()
 		{
 		}
@@ -40,9 +42,36 @@ namespace PluginCore
 			return false;
 		}
 
-		const int RTLD_NOW = 2;
+        public int DragQueryFileA(IntPtr hDrop, uint idx, IntPtr buff, int sz)
+        {
+            // FIXME slavara: IMPLEMENT ME
+            return -1;
+        }
 
-		[DllImport("libdl")]
-		private static extern IntPtr dlopen(String fileName, int flags);
-	}
+        public int DragFinish(IntPtr hDrop)
+        {
+            // FIXME slavara: IMPLEMENT ME
+            return -1;
+        }
+
+        public void DragAcceptFiles(IntPtr hwnd, int accept)
+        {
+            // FIXME slavara: IMPLEMENT ME
+        }
+
+        public int GetDeviceCaps(IntPtr hdc, int capindex)
+        {
+            // FIXME slavara: IMPLEMENT ME
+            return -1;
+        }
+
+        public int SetWindowPos(IntPtr hWnd, int hWndInsertAfter, int X, int Y, int cx, int cy, int uFlags)
+        {
+            // FIXME slavara: IMPLEMENT ME
+            return -1;
+        }
+
+        [DllImport("libdl")]
+        private static extern IntPtr dlopen(String fileName, int flags);
+    }
 }

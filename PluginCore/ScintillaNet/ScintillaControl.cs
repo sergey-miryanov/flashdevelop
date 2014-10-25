@@ -1,16 +1,13 @@
 using System;
-using System.Reflection;
 using System.Collections;
 using System.Windows.Forms;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
-using System.Text.RegularExpressions;
 using ScintillaNet.Configuration;
 using System.Drawing.Printing;
 using PluginCore.FRService;
 using PluginCore.Utilities;
 using PluginCore.Managers;
-using System.Drawing;
 using System.Text;
 using PluginCore;
 
@@ -39,7 +36,7 @@ namespace ScintillaNet
 
         public ScintillaControl() : this("SciLexer.dll")
         {
-            DragAcceptFiles(this.Handle, 1);
+            OSHelper.API.DragAcceptFiles(this.Handle, 1);
         }
 
         public ScintillaControl(string fullpath)
@@ -65,7 +62,7 @@ namespace ScintillaNet
 
         public void OnResize(object sender, EventArgs e)
         {
-            SetWindowPos(this.hwndScintilla, 0, this.ClientRectangle.X, this.ClientRectangle.Y, this.ClientRectangle.Width, this.ClientRectangle.Height, 0);
+            OSHelper.API.SetWindowPos(this.hwndScintilla, 0, this.ClientRectangle.X, this.ClientRectangle.Y, this.ClientRectangle.Width, this.ClientRectangle.Height, 0);
         }
 
 		#endregion
@@ -4985,30 +4982,12 @@ namespace ScintillaNet
         // Stops all sci events from firing...
         public bool DisableAllSciEvents = false;
 
-		[DllImport("gdi32.dll")] 
-		public static extern int GetDeviceCaps(IntPtr hdc, Int32 capindex);
-		
-		[DllImport("user32.dll")]
-		public static extern int SendMessage(int hWnd, uint Msg, int wParam, int lParam);
-
-		[DllImport("user32.dll")]
-		public static extern int SetWindowPos(IntPtr hWnd, int hWndInsertAfter, int X, int Y, int cx, int cy, int uFlags);
-		
-		[DllImport("shell32.dll")]
-        public static extern int DragQueryFileA(IntPtr hDrop, uint idx, IntPtr buff, int sz);
-                
-        [DllImport("shell32.dll")]
-        public static extern int DragFinish(IntPtr hDrop);
-                
-        [DllImport("shell32.dll")]
-        public static extern void DragAcceptFiles(IntPtr hwnd, int accept);
-        
-		[DllImport("scilexer.dll", EntryPoint = "Scintilla_DirectFunction")]
+        [DllImport("scilexer.dll", EntryPoint = "Scintilla_DirectFunction")]
 		public static extern int Perform(int directPointer, UInt32 message, UInt32 wParam, UInt32 lParam);
 
 		public UInt32 SlowPerform(UInt32 message, UInt32 wParam, UInt32 lParam)
 		{
-			return (UInt32)SendMessage((int)hwndScintilla, message, (int)wParam, (int)lParam);
+            return (UInt32)OSHelper.API.SendMessage(hwndScintilla, (int)message, (int)wParam, (int)lParam);
 		}
 
 		public UInt32 FastPerform(UInt32 message, UInt32 wParam, UInt32 lParam)
@@ -5533,8 +5512,8 @@ namespace ScintillaNet
 		private RangeToFormat GetRangeToFormat(IntPtr hdc, int charFrom, int charTo)
 		{
 			RangeToFormat frPrint;
-			int pageWidth = (int)GetDeviceCaps(hdc, 110);
-			int pageHeight = (int)GetDeviceCaps(hdc, 111);
+			int pageWidth = OSHelper.API.GetDeviceCaps(hdc, 110);
+            int pageHeight = OSHelper.API.GetDeviceCaps(hdc, 111);
 			frPrint.hdcTarget = hdc;
 			frPrint.hdc = hdc;
 			frPrint.rcPage.Left = 0;
@@ -6242,19 +6221,19 @@ namespace ScintillaNet
 		/// </summary>
 		unsafe void HandleFileDrop(IntPtr hDrop) 
 		{
-			int nfiles = DragQueryFileA(hDrop, 0xffffffff, (IntPtr)null, 0);
+			int nfiles = OSHelper.API.DragQueryFileA(hDrop, 0xffffffff, (IntPtr)null, 0);
 			string files = "";
 			byte[] buffer = new byte[PATH_LEN];
 			for (uint i = 0; i<nfiles; i++) 
 			{
 				fixed (byte* b = buffer) 
 				{
-					DragQueryFileA(hDrop, i, (IntPtr)b, PATH_LEN);
+                    OSHelper.API.DragQueryFileA(hDrop, i, (IntPtr)b, PATH_LEN);
 					if (files.Length > 0) files += ' ';
 					files += '"'+MarshalStr((IntPtr)b) + '"';
 				}
 			}
-			DragFinish(hDrop);
+            OSHelper.API.DragFinish(hDrop);
 			if (URIDropped != null) URIDropped(this, files);                        
 		}
 		
