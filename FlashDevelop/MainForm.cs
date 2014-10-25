@@ -1153,6 +1153,7 @@ namespace FlashDevelop
                 ShortcutManager.SaveCustomShortcuts();
                 ArgumentDialog.SaveCustomArguments();
                 PluginServices.DisposePlugins();
+                this.KillProcess();
                 this.SaveAllSettings();
                 /* Restart if requested */
                 if (this.restartRequested)
@@ -2978,6 +2979,7 @@ namespace FlashDevelop
         {
             Globals.SciControl.MarkerDeleteAll(0);
             UITools.Manager.MarkerChanged(Globals.SciControl, -1);
+            ButtonManager.UpdateFlaggedButtons();
         }
 
         /// <summary>
