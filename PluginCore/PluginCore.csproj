@@ -343,6 +343,10 @@
     <Compile Include="PluginCore\Utilities\DataConverter.cs" />
     <Compile Include="PluginCore\Utilities\LineEndDetector.cs" />
     <Compile Include="PluginCore\Utilities\ObjectSerializer.cs" />
+    <Compile Include="ScintillaHelper\IScintillaView.cs" />
+    <Compile Include="ScintillaHelper\Linux\ScintillaView.cs" />
+    <Compile Include="ScintillaHelper\ScintillaHelper.cs" />
+    <Compile Include="ScintillaHelper\Win\ScintillaView.cs" />
     <Compile Include="ScintillaNet\Configuration\CharacterClass.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -574,7 +578,5 @@
     <PostBuildEvent>
     </PostBuildEvent>
   </PropertyGroup>
-  <ItemGroup>
-    <Folder Include="API\" />
-  </ItemGroup>
+  <ItemGroup />
 </Project>

@@ -1,15 +1,16 @@
+using PluginCore;
+using PluginCore.FRService;
+using PluginCore.Managers;
+using PluginCore.ScintillaHelper;
+using PluginCore.Utilities;
+using ScintillaNet.Configuration;
 using System;
 using System.Collections;
-using System.Windows.Forms;
 using System.Collections.Generic;
-using System.Runtime.InteropServices;
-using ScintillaNet.Configuration;
 using System.Drawing.Printing;
-using PluginCore.FRService;
-using PluginCore.Utilities;
-using PluginCore.Managers;
+using System.Runtime.InteropServices;
 using System.Text;
-using PluginCore;
+using System.Windows.Forms;
 
 namespace ScintillaNet
 {
@@ -18,8 +19,7 @@ namespace ScintillaNet
         private bool saveBOM;
         private Encoding encoding;
 		private int directPointer;
-		private IntPtr hwndScintilla;
-        private bool hasHighlights = false;
+		private bool hasHighlights = false;
 		private bool ignoreAllKeys = false;
 		private bool isBraceMatching = true;
         private bool isHiliteSelected = true;
@@ -36,22 +36,22 @@ namespace ScintillaNet
 
         public ScintillaControl() : this("SciLexer.dll")
         {
-            OSHelper.API.DragAcceptFiles(this.Handle, 1);
+            ScintillaHelper.View.DragAcceptFiles(Handle, 1);
         }
 
         public ScintillaControl(string fullpath)
         {
             try
             {
-                IntPtr lib = OSHelper.API.LoadLibrary(fullpath);
-				hwndScintilla = OSHelper.API.CreateWindowEx(0, "Scintilla", "", WS_CHILD_VISIBLE_TABSTOP, 0, 0, this.Width, this.Height, this.Handle, 0, new IntPtr(0), null);
+                OSHelper.API.LoadLibrary(fullpath);
+                ScintillaHelper.View.Create(WS_CHILD_VISIBLE_TABSTOP, 0, 0, Width, Height, Handle);
                 directPointer = (int)SlowPerform(2185, 0, 0);
-                UpdateUI += new UpdateUIHandler(OnBraceMatch);
-                UpdateUI += new UpdateUIHandler(OnCancelHighlight);
-                DoubleClick += new DoubleClickHandler(OnBlockSelect);
-                DoubleClick += new DoubleClickHandler(OnSelectHighlight);
-                CharAdded += new CharAddedHandler(OnSmartIndent);
-                Resize += new EventHandler(OnResize);
+                UpdateUI += OnBraceMatch;
+                UpdateUI += OnCancelHighlight;
+                DoubleClick += OnBlockSelect;
+                DoubleClick += OnSelectHighlight;
+                CharAdded += OnSmartIndent;
+                Resize += OnResize;
                 directPointer = DirectPointer;
             }
             catch (Exception ex)
@@ -62,7 +62,7 @@ namespace ScintillaNet
 
         public void OnResize(object sender, EventArgs e)
         {
-            OSHelper.API.SetWindowPos(this.hwndScintilla, 0, this.ClientRectangle.X, this.ClientRectangle.Y, this.ClientRectangle.Width, this.ClientRectangle.Height, 0);
+            ScintillaHelper.View.Resize(ClientRectangle.X, ClientRectangle.Y, ClientRectangle.Width, ClientRectangle.Height);
         }
 
 		#endregion
@@ -119,7 +119,7 @@ namespace ScintillaNet
         /// </summary>
         public IntPtr HandleSci
         {
-            get { return hwndScintilla; }
+            get { return ScintillaHelper.View.Hwnd; }
         }
 
         /// <summary>
@@ -2230,7 +2230,7 @@ namespace ScintillaNet
 		/// </summary>
         public new bool Focus()
         {
-            return WinAPI.SetFocus(hwndScintilla) != IntPtr.Zero;
+            return ScintillaHelper.View.Focus();
         }
 
 		/// <summary>
@@ -4982,12 +4982,12 @@ namespace ScintillaNet
         // Stops all sci events from firing...
         public bool DisableAllSciEvents = false;
 
-        [DllImport("scilexer.dll", EntryPoint = "Scintilla_DirectFunction")]
+        [DllImport("SciLexer.dll", EntryPoint = "Scintilla_DirectFunction")]
 		public static extern int Perform(int directPointer, UInt32 message, UInt32 wParam, UInt32 lParam);
 
 		public UInt32 SlowPerform(UInt32 message, UInt32 wParam, UInt32 lParam)
 		{
-            return (UInt32)OSHelper.API.SendMessage(hwndScintilla, (int)message, (int)wParam, (int)lParam);
+            return (UInt32)OSHelper.API.SendMessage(ScintillaHelper.View.Hwnd, (int)message, (int)wParam, (int)lParam);
 		}
 
 		public UInt32 FastPerform(UInt32 message, UInt32 wParam, UInt32 lParam)
@@ -5047,7 +5047,7 @@ namespace ScintillaNet
             else if (m.Msg == WM_NOTIFY)
 			{
 				SCNotification scn = (SCNotification)Marshal.PtrToStructure(m.LParam, typeof(SCNotification));
-                if (scn.nmhdr.hwndFrom == hwndScintilla && !this.DisableAllSciEvents) 
+                if (scn.nmhdr.hwndFrom == ScintillaHelper.View.Hwnd && !this.DisableAllSciEvents) 
 				{
 					switch (scn.nmhdr.code)
 					{
