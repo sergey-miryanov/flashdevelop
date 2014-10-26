@@ -1,15 +1,19 @@
-﻿namespace PluginCore.ScintillaHelper.Linux
+﻿using Gtk;
+using Sansguerre;
+namespace PluginCore.ScintillaHelper.Linux
 {
     class ScintillaView : IScintillaView
     {
+		Widget widget;
+
         public void Create(uint dwStyle, int x, int y, int width, int height, System.IntPtr hWndParent)
         {
-            throw new System.NotImplementedException();
+			widget = new GtkScintilla();
         }
 
         public System.IntPtr Hwnd
         {
-            get { throw new System.NotImplementedException(); }
+			get { return widget.Handle; }
         }
 
         public void DragAcceptFiles(System.IntPtr hwnd, int accept)
