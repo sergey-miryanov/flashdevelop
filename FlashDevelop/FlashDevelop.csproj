@@ -162,6 +162,7 @@
     <Compile Include="Managers\SessionManager.cs" />
     <Compile Include="Managers\StripBarManager.cs">
     </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Settings\Accessors.cs" />
     <Compile Include="Settings\Properties.cs" />
     <Compile Include="Settings\Reflection.cs" />
