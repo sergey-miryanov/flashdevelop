@@ -4982,7 +4982,7 @@ namespace ScintillaNet
         // Stops all sci events from firing...
         public bool DisableAllSciEvents = false;
 
-        [DllImport("scilexer.dll", EntryPoint = "Scintilla_DirectFunction")]
+        [DllImport("SciLexer.dll", EntryPoint = "Scintilla_DirectFunction")]
 		public static extern int Perform(int directPointer, UInt32 message, UInt32 wParam, UInt32 lParam);
 
 		public UInt32 SlowPerform(UInt32 message, UInt32 wParam, UInt32 lParam)
