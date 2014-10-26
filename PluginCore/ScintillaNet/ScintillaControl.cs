@@ -1,6 +1,7 @@
 using PluginCore;
 using PluginCore.FRService;
 using PluginCore.Managers;
+using PluginCore.ScintillaHelper;
 using PluginCore.Utilities;
 using ScintillaNet.Configuration;
 using System;
@@ -18,8 +19,7 @@ namespace ScintillaNet
         private bool saveBOM;
         private Encoding encoding;
 		private int directPointer;
-		private IntPtr hwndScintilla;
-        private bool hasHighlights = false;
+		private bool hasHighlights = false;
 		private bool ignoreAllKeys = false;
 		private bool isBraceMatching = true;
         private bool isHiliteSelected = true;
@@ -36,7 +36,7 @@ namespace ScintillaNet
 
         public ScintillaControl() : this("SciLexer.dll")
         {
-            OSHelper.API.DragAcceptFiles(this.Handle, 1);
+            ScintillaHelper.View.DragAcceptFiles(Handle, 1);
         }
 
         public ScintillaControl(string fullpath)
@@ -44,7 +44,7 @@ namespace ScintillaNet
             try
             {
                 OSHelper.API.LoadLibrary(fullpath);
-                hwndScintilla = OSHelper.API.CreateWindowEx(0, "Scintilla", "", WS_CHILD_VISIBLE_TABSTOP, 0, 0, this.Width, this.Height, this.Handle, 0, new IntPtr(0), null);
+                ScintillaHelper.View.Create(WS_CHILD_VISIBLE_TABSTOP, 0, 0, Width, Height, Handle);
                 directPointer = (int)SlowPerform(2185, 0, 0);
                 UpdateUI += OnBraceMatch;
                 UpdateUI += OnCancelHighlight;
@@ -62,7 +62,7 @@ namespace ScintillaNet
 
         public void OnResize(object sender, EventArgs e)
         {
-            OSHelper.API.SetWindowPos(this.hwndScintilla, 0, this.ClientRectangle.X, this.ClientRectangle.Y, this.ClientRectangle.Width, this.ClientRectangle.Height, 0);
+            ScintillaHelper.View.Resize(ClientRectangle.X, ClientRectangle.Y, ClientRectangle.Width, ClientRectangle.Height);
         }
 
 		#endregion
@@ -119,7 +119,7 @@ namespace ScintillaNet
         /// </summary>
         public IntPtr HandleSci
         {
-            get { return hwndScintilla; }
+            get { return ScintillaHelper.View.Hwnd; }
         }
 
         /// <summary>
@@ -2230,7 +2230,7 @@ namespace ScintillaNet
 		/// </summary>
         public new bool Focus()
         {
-            return WinAPI.SetFocus(hwndScintilla) != IntPtr.Zero;
+            return ScintillaHelper.View.Focus();
         }
 
 		/// <summary>
@@ -4987,7 +4987,7 @@ namespace ScintillaNet
 
 		public UInt32 SlowPerform(UInt32 message, UInt32 wParam, UInt32 lParam)
 		{
-            return (UInt32)OSHelper.API.SendMessage(hwndScintilla, (int)message, (int)wParam, (int)lParam);
+            return (UInt32)OSHelper.API.SendMessage(ScintillaHelper.View.Hwnd, (int)message, (int)wParam, (int)lParam);
 		}
 
 		public UInt32 FastPerform(UInt32 message, UInt32 wParam, UInt32 lParam)
@@ -5047,7 +5047,7 @@ namespace ScintillaNet
             else if (m.Msg == WM_NOTIFY)
 			{
 				SCNotification scn = (SCNotification)Marshal.PtrToStructure(m.LParam, typeof(SCNotification));
-                if (scn.nmhdr.hwndFrom == hwndScintilla && !this.DisableAllSciEvents) 
+                if (scn.nmhdr.hwndFrom == ScintillaHelper.View.Hwnd && !this.DisableAllSciEvents) 
 				{
 					switch (scn.nmhdr.code)
 					{
