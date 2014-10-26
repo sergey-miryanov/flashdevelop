@@ -9,7 +9,7 @@ namespace PluginCore
 
 		static OSHelper()
 		{
-			switch (Environment.OSVersion.Platform)
+			switch (Platform)
 			{
 				case PlatformID.Win32NT:
 				case PlatformID.Win32S:
@@ -21,11 +21,30 @@ namespace PluginCore
 					API = new MacAPI();
 					break;
 				case PlatformID.Unix:
-					API = IsRunningOnMac() ? (APIUtils)new MacAPI() : (APIUtils)new LinuxAPI();
+					API = new LinuxAPI();
 					break;
 				default: throw new Exception(Environment.OSVersion.ToString());
 			}
 		}
+
+        // Summary:
+        //     Gets a System.PlatformID enumeration value that identifies the operating
+        //     system platform.
+        //
+        // Returns:
+        //     One of the System.PlatformID values.
+        public static PlatformID Platform
+        {
+            get
+            {
+                PlatformID id = Environment.OSVersion.Platform;
+                switch (id)
+                {
+                    case PlatformID.Unix: return IsRunningOnMac() ? PlatformID.MacOSX : PlatformID.Unix;
+                    default: return id;
+                }
+            }
+        }
 
 		[DllImport("libc")]
 		static extern int uname(IntPtr buf);
