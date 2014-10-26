@@ -104,6 +104,24 @@
     <Reference Include="System.Xml">
       <Name>System.XML</Name>
     </Reference>
+    <Reference Include="gtk-sharp">
+      <HintPath>..\..\..\..\..\..\usr\lib\mono\gac\gtk-sharp\2.12.0.0__35e10195dab3c99f\gtk-sharp.dll</HintPath>
+    </Reference>
+    <Reference Include="gdk-sharp">
+      <HintPath>..\..\..\..\..\..\usr\lib\mono\gac\gdk-sharp\2.12.0.0__35e10195dab3c99f\gdk-sharp.dll</HintPath>
+    </Reference>
+    <Reference Include="glib-sharp">
+      <HintPath>..\..\..\..\..\..\usr\lib\mono\gac\glib-sharp\2.12.0.0__35e10195dab3c99f\glib-sharp.dll</HintPath>
+    </Reference>
+    <Reference Include="art-sharp">
+      <HintPath>..\..\..\..\..\..\usr\lib\mono\gac\art-sharp\2.24.0.0__35e10195dab3c99f\art-sharp.dll</HintPath>
+    </Reference>
+    <Reference Include="atk-sharp">
+      <HintPath>..\..\..\..\..\..\usr\lib\mono\gac\atk-sharp\2.12.0.0__35e10195dab3c99f\atk-sharp.dll</HintPath>
+    </Reference>
+    <Reference Include="scintilla-sharp">
+      <HintPath>Bin\Debug\scintilla-sharp.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DockPanelSuite\Customization\DockPanelControl.cs">
