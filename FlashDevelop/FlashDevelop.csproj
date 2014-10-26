@@ -272,4 +272,7 @@
   <PropertyGroup Condition=" '$(OS)' == 'Unix'">
     <PreBuildEvent>"$(SolutionDir)\SetVersion.sh" "$(SolutionDir)"</PreBuildEvent>
   </PropertyGroup>
+  <ItemGroup>
+    <Folder Include="Properties\" />
+  </ItemGroup>
 </Project>
