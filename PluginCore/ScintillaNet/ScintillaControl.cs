@@ -1,15 +1,15 @@
+using PluginCore;
+using PluginCore.FRService;
+using PluginCore.Managers;
+using PluginCore.Utilities;
+using ScintillaNet.Configuration;
 using System;
 using System.Collections;
-using System.Windows.Forms;
 using System.Collections.Generic;
-using System.Runtime.InteropServices;
-using ScintillaNet.Configuration;
 using System.Drawing.Printing;
-using PluginCore.FRService;
-using PluginCore.Utilities;
-using PluginCore.Managers;
+using System.Runtime.InteropServices;
 using System.Text;
-using PluginCore;
+using System.Windows.Forms;
 
 namespace ScintillaNet
 {
@@ -44,7 +44,7 @@ namespace ScintillaNet
             try
             {
                 IntPtr lib = OSHelper.API.LoadLibrary(fullpath);
-				hwndScintilla = OSHelper.API.CreateWindowEx(0, "Scintilla", "", WS_CHILD_VISIBLE_TABSTOP, 0, 0, this.Width, this.Height, this.Handle, 0, new IntPtr(0), null);
+                hwndScintilla = OSHelper.API.CreateWindowEx(0, "Scintilla", "", WS_CHILD_VISIBLE_TABSTOP, 0, 0, this.Width, this.Height, this.Handle, 0, new IntPtr(0), null);
                 directPointer = (int)SlowPerform(2185, 0, 0);
                 UpdateUI += new UpdateUIHandler(OnBraceMatch);
                 UpdateUI += new UpdateUIHandler(OnCancelHighlight);
