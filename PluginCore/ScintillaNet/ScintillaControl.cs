@@ -43,15 +43,15 @@ namespace ScintillaNet
         {
             try
             {
-                IntPtr lib = OSHelper.API.LoadLibrary(fullpath);
+                OSHelper.API.LoadLibrary(fullpath);
                 hwndScintilla = OSHelper.API.CreateWindowEx(0, "Scintilla", "", WS_CHILD_VISIBLE_TABSTOP, 0, 0, this.Width, this.Height, this.Handle, 0, new IntPtr(0), null);
                 directPointer = (int)SlowPerform(2185, 0, 0);
-                UpdateUI += new UpdateUIHandler(OnBraceMatch);
-                UpdateUI += new UpdateUIHandler(OnCancelHighlight);
-                DoubleClick += new DoubleClickHandler(OnBlockSelect);
-                DoubleClick += new DoubleClickHandler(OnSelectHighlight);
-                CharAdded += new CharAddedHandler(OnSmartIndent);
-                Resize += new EventHandler(OnResize);
+                UpdateUI += OnBraceMatch;
+                UpdateUI += OnCancelHighlight;
+                DoubleClick += OnBlockSelect;
+                DoubleClick += OnSelectHighlight;
+                CharAdded += OnSmartIndent;
+                Resize += OnResize;
                 directPointer = DirectPointer;
             }
             catch (Exception ex)
