@@ -13,7 +13,7 @@
     <FileUpgradeFlags>
     </FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <UpgradeBackupLocation>
     </UpgradeBackupLocation>
     <TargetFrameworkProfile />
@@ -74,6 +74,9 @@
   </Target>
   -->
   <ItemGroup>
+    <Reference Include="jni4net.n-0.8.4.0">
+      <HintPath>.\jni4net.n-0.8.4.0.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Design" />
@@ -85,9 +88,6 @@
     </Reference>
     <Reference Include="fdb.j4n">
       <HintPath>fdb.j4n.dll</HintPath>
-    </Reference>
-    <Reference Include="jni4net.n-0.8.4.0">
-      <HintPath>jni4net.n-0.8.4.0.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml" />
   </ItemGroup>
@@ -163,6 +163,9 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="jni4net.n.w32.v40-0.8.4.0.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="Icons\Breakpoints\CurLine.bmp" />
     <None Include="Icons\Breakpoints\Disabled.bmp" />
     <None Include="Icons\Breakpoints\Enabled.bmp" />
@@ -178,9 +181,6 @@
     <Content Include="Icons\RunToCursor.png" />
     <Content Include="Icons\Stop.png" />
     <Content Include="jni4net.j-0.8.4.0.jar">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="jni4net.n.w32.v20-0.8.4.0.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
