@@ -77,6 +77,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Aga, Version=1.7.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Bin\Debug\Aga.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Design" />
@@ -91,9 +95,6 @@
     </Reference>
     <Reference Include="Scripting">
       <HintPath>Bin\Debug\Scripting.dll</HintPath>
-    </Reference>
-    <Reference Include="Aga">
-      <HintPath>Bin\Debug\Aga.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
